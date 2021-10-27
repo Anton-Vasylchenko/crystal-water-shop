@@ -1,0 +1,1 @@
+export { default as AdminComponentsEdit } from './admin-components-edit';

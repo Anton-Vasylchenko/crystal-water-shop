@@ -1,0 +1,9 @@
+.shop-items-list {
+  min-height: 800px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .shop-items-list {
+    text-align: center;
+  }
+}

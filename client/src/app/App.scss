@@ -1,0 +1,81 @@
+html {
+  height: 100%;
+}
+
+p {
+  margin-bottom: 0rem !important;
+}
+
+body {
+  background: rgb(225, 235, 243);
+  color: #003671;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.unselectable-text {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently                                 not supported by any browser */
+}
+
+.close ::before {
+  content: 'X';
+  visibility: visible;
+  color: 'black';
+  font-weight: bold;
+}
+
+.sr-only::before {
+  visibility: hidden;
+}
+
+.page-img {
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  img {
+    width: 100%;
+    height: 420px;
+    object-fit: contain;
+  }
+}
+
+.close {
+  /*background-color: red; */
+  visibility: hidden;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(170, 49, 49, 0.5);
+}
+
+@media only screen and (max-width: 992px) {
+  body {
+    margin-top: 60px;
+  }
+}
+
+table {
+  border: 1px solid grey;
+}
+
+td {
+  border: 1px solid grey;
+}

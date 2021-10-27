@@ -1,0 +1,12 @@
+.aboutus__preloader-img {
+  position: relative;
+  width: 400px;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 992px) {
+  .aboutus__preloader-img {
+    width: 300px;
+    height: 300px;
+  }
+}
