@@ -56,8 +56,8 @@ function CreateProduct({ show, handleNo, handleSubmit }) {
             return;
         }
 
-        if (nameCount > 27) {
-            showErrorMsg(`Помилка! Ім'я не повинно перевищувати 27 символів`);
+        if (nameCount > 40) {
+            showErrorMsg(`Помилка! Ім'я не повинно перевищувати 40 символів`);
             return;
         }
 
@@ -140,7 +140,7 @@ function CreateProduct({ show, handleNo, handleSubmit }) {
                             <Form.Group as={Col} controlId="formGridName">
                                 <Form.Label>
                                     <b>Name: <span
-                                        className={nameCount > 27 ? 'text-danger' : ''}>
+                                        className={nameCount > 40 ? 'text-danger' : ''}>
                                         ({nameCount})</span>
                                     </b>
                                 </Form.Label>

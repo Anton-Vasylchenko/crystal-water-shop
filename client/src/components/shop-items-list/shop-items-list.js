@@ -1,8 +1,9 @@
 import React from 'react'
 import { ShopItem, Spinner } from '../';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchGoods, addItemToCart } from '../../redux/actions';
+import { fetchGoods, addItemToCart, setPage } from '../../redux/actions';
 import { AdminProductsAdd } from '../admin/admin-products';
+import PagePagination from '../page-pagination';
 
 import './shop-items-list.scss';
 
@@ -10,16 +11,20 @@ function ShopItemsList() {
     const dispatch = useDispatch();
 
     const cartItems = useSelector(({ cart }) => cart.items);
-    const { items, isLoaded } = useSelector(({ goods }) => goods);
+    const { items, isLoaded, totalCount, limit, page } = useSelector(({ goods }) => goods);
     const { activeCategory, sortBy, sortOrder } = useSelector(({ filters }) => filters);
     const { isAuth } = useSelector(({ user }) => user);
 
     React.useEffect(() => {
-        dispatch(fetchGoods(sortBy, activeCategory, sortOrder));
-    }, [dispatch, activeCategory, sortBy, sortOrder]);
+        dispatch(fetchGoods(sortBy, activeCategory, sortOrder, page, limit));
+    }, [activeCategory, sortBy, sortOrder, page, limit]);
 
     const handleAddItemToCart = (obj) => {
         dispatch(addItemToCart(obj));
+    }
+
+    const handleChangePage = (pageNumber) => {
+        dispatch(setPage(pageNumber));
     }
 
     const loadingGoods = !isLoaded ? <Spinner /> : items.map((item) => {
@@ -43,6 +48,7 @@ function ShopItemsList() {
         <div className="shop-items-list">
             {isAuth ? <AdminProductsAdd /> : ''}
             {goodsList}
+            <PagePagination itemsCount={totalCount} limit={limit} currentPage={page} changePage={handleChangePage} />
         </div>
     )
 }

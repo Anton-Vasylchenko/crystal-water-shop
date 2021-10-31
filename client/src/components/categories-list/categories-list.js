@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { setActiveCategory, fetchCategories } from '../../redux/actions';
+import { setActiveCategory, fetchCategories, setPage } from '../../redux/actions';
 import { CreateCategories } from '../admin/admin-categories';
 import { EditCategoriesList } from '../admin/admin-categories';
 
@@ -18,6 +18,7 @@ function CategoriesList() {
 
     const onSelectCategory = React.useCallback((index) => {
         dispatch(setActiveCategory(index));
+        dispatch(setPage(1));
     }, [dispatch]);
 
     const categoriesList = categories && categories.map((elem, index) => {

@@ -42,6 +42,19 @@ class ProductController {
         return res.json(products);
     }
 
+    async getProductByCatId(req, res, next) {
+        try {
+            const { id } = req.params;
+
+            const product = await Product.findOne({
+                where: { categoryId: id }
+            });
+            return res.json(product);
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
     async getById(req, res, next) {
         try {
             const { id } = req.params;
@@ -111,6 +124,15 @@ class ProductController {
         } catch (e) {
             next(ApiError.badRequest('Error!'))
         }
+    }
+
+    async increaseRating(id, next) {
+        const product = await Product.findOne({
+            where: { id }
+        });
+
+        const rating = product.rating + 1;
+        const updateProduct = await Product.update({ rating }, { where: { id } })
     }
 
     async delete(req, res, next) {

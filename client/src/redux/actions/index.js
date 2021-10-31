@@ -1,5 +1,5 @@
 import { setCategories, setActiveCategory, setSortBy, fetchCategories, setSortOrder } from './filters';
-import { setGoods, fetchGoods, setLoaded, fetchPopularGoods, fetchItemDetails } from './goods';
+import { setGoods, fetchGoods, setLoaded, fetchPopularGoods, fetchItemDetails, setPage, setLimit, setTotalCount } from './goods';
 import { setAdvantages, fetchAdvantages } from './advantages';
 import { addItemToCart, clearCart, removeCartItem, plusCartItem, minusCartItem } from './cart';
 import { setIsAuth, setUser } from './user';
@@ -23,5 +23,8 @@ export {
     fetchPopularGoods,
     fetchItemDetails,
     setIsAuth,
-    setUser
+    setUser,
+    setPage,
+    setLimit,
+    setTotalCount
 }

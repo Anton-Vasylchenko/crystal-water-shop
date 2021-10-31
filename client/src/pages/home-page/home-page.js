@@ -12,6 +12,7 @@ import './home-page.scss';
 export default function HomePage() {
     const { isAuth } = useSelector(({ user }) => user);
     const [componentData, setComponentData] = React.useState({})
+    const [isLoading, setIsLoading] = React.useState(false)
 
     React.useEffect(() => {
         updateInfo();
@@ -20,17 +21,19 @@ export default function HomePage() {
     const updateInfo = () => {
         getComponentById(1).then(data => {
             setComponentData(data)
+        }).finally(() => {
+            setIsLoading(true)
         })
     }
 
     return (
         <div>
-            <Container>
+            <Container isLoaded={isLoading}>
                 {isAuth ? <AdminComponentsEdit data={componentData} updateData={updateInfo} /> : ''}
 
                 <div className="home">
                     <div className="home__img">
-                        <img src={`${process.env.REACT_APP_API_URL}components/${componentData.img}`} className="img-fluid" alt="main logo" />
+                        {componentData.img && <img src={`${process.env.REACT_APP_API_URL}components/${componentData.img}`} className="img-fluid" alt="main logo" />}
                     </div>
 
                     <div className="home__text">

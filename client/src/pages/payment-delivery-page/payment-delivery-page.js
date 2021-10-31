@@ -11,6 +11,7 @@ export default function ContactsPage() {
     const { isAuth } = useSelector(({ user }) => user);
 
     const [componentData, setComponentData] = React.useState({})
+    const [isLoading, setIsLoading] = React.useState(false)
 
     React.useEffect(() => {
         updateInfo();
@@ -19,17 +20,19 @@ export default function ContactsPage() {
     const updateInfo = () => {
         getComponentById(10).then(data => {
             setComponentData(data)
+        }).finally(() => {
+            setIsLoading(true)
         })
     }
 
     return (
-        <Container title={componentData.title}>
+        <Container title={componentData.title} isLoaded={isLoading}>
             {isAuth ? <AdminComponentsEdit data={componentData} updateData={updateInfo} /> : ''}
 
             {componentData ? parse(`${componentData.text}`) : ''}
 
             <div className="page-img">
-                <img src={`${process.env.REACT_APP_API_URL}components/${componentData.img}`} alt="poster" />
+                {componentData.img && <img src={`${process.env.REACT_APP_API_URL}components/${componentData.img}`} alt="poster" />}
             </div>
         </Container>
     )

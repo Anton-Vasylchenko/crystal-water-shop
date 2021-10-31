@@ -1,7 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Form, Button, Col, Alert } from 'react-bootstrap';
 import { sendEmail } from '../../services/sendMail';
+import helpers from '../helpers/helpers';
 import { clearCart } from "../../redux/actions"
 
 import './form-buy.scss';
@@ -12,7 +13,12 @@ function FormBuy() {
     const [enteredPhone, setEnteredPhone] = React.useState('');
 
     const [showPopup, setShowPopup] = React.useState(false);
+    const [showMsg, setShowMsg] = React.useState(false);
     const [error, setError] = React.useState('');
+
+    const { totalPrice,
+        items
+    } = useSelector(({ cart }) => cart);
 
     const handleNo = () => {
         setShowPopup(false);
@@ -35,21 +41,23 @@ function FormBuy() {
 
         sendOrderToEmail();
 
-        dispatch(clearCart());
         handleNo();
+        setShowMsg(true);
     }
 
     const sendOrderToEmail = () => {
         try {
             const formData = new FormData();
+            const emailMsg = helpers.createEmailTemplate(items);
+            const id = helpers.getIdFormCart(items);
+
             formData.append('name', enteredName);
             formData.append('phone', enteredPhone);
+            formData.append('totalPrice', totalPrice);
+            formData.append('items', emailMsg);
+            formData.append('idArray', id);
 
-            sendEmail(formData).then(data => {
-                // dispatch(fetchAdvantages());
-
-                console.log(data)
-            })
+            sendEmail(formData);
 
         } catch (e) {
             alert(e.response.data.message)
@@ -66,9 +74,31 @@ function FormBuy() {
         setEnteredPhone(e.target.value);
     }
 
+    const handleMsgClose = () => {
+        setShowMsg(false)
+        dispatch(clearCart());
+    }
+
     return (
         <>
             <div className="cart-bottom__buy-btn unselectable-text" onClick={formShowHandler}>Замовити</div>
+
+            {showMsg &&
+
+                <Modal size="lg" animation={true} show={showMsg} onHide={handleMsgClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title> Дякуємо за замовлення! </Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <Form className="text-center">
+                            <p> Дякуємо за ваше замовлення. Очікуйте телефонного дзвінка для уточнення деталей! </p>
+                            <Button className="m-4" variant="success" type="button" onClick={handleMsgClose}>
+                                OK
+                            </Button>
+                        </Form>
+                    </Modal.Body>
+                </Modal>}
 
             <div onClick={e => e.stopPropagation()}>
                 <Modal size="lg" animation={true} show={showPopup} onHide={handleNo}>

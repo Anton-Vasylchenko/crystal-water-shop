@@ -1,6 +1,9 @@
 const initialState = {
     items: [],
     itemDetails: {},
+    page: 1,
+    totalCount: 0,
+    limit: 12,
     isLoaded: false
 }
 
@@ -28,6 +31,21 @@ const goods = (state = initialState, action) => {
             return {
                 ...state,
                 isLoaded: action.payload
+            };
+        case 'SET_PAGE':
+            return {
+                ...state,
+                page: action.payload,
+            };
+        case 'SET_LIMIT':
+            return {
+                ...state,
+                limit: action.payload,
+            };
+        case 'SET_TOTAL_COUNT':
+            return {
+                ...state,
+                totalCount: action.payload,
             };
         default:
             return state;

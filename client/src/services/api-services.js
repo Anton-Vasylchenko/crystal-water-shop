@@ -17,23 +17,30 @@ class ApiServices {
     return body;
   }
 
-  getGoods = async (sortBy, category, sortOrder, limit) => {
+  getGoods = async (sortBy, category, sortOrder, page, limit) => {
     const { data } = await axios.get(`${this._baseUrl}product`, {
       params: {
         categoryId: category,
         sortOrder: sortOrder,
         sortBy: sortBy,
-        limit: limit
+        limit: limit,
+        page: page
       }
     })
 
-    return data.rows;
+    return data;
+  }
+
+  getProductByCatId = async (catId) => {
+    const { data } = await axios.get(`${this._baseUrl}product/byCategory/${catId}`)
+    return data;
   }
 
   getShopItemById = async (id) => {
     const { data } = await axios.get(`${this._baseUrl}product/${id}`)
     return data;
   }
+
 
   getShopCategories = async () => {
     const items = await this.getResource(`category`);

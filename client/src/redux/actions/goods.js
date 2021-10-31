@@ -5,17 +5,24 @@ const setLoaded = (payload) => ({
     payload,
 })
 
-const fetchGoods = (sortBy, category, sortOrder) => (dispatch) => {
+const fetchGoods = (sortBy, category, sortOrder, page, limit) => (dispatch) => {
     dispatch(setLoaded(false));
-    apiServices.getGoods(sortBy, category, sortOrder).then(data => {
-        dispatch(setGoods(data));
+    apiServices.getGoods(sortBy, category, sortOrder, page, limit).then(data => {
+        dispatch(setGoods(data.rows));
+        dispatch(setTotalCount(data.count));
     })
 }
 
 const fetchPopularGoods = (catId) => (dispatch) => {
+
+    const page = 1;
+    const limit = 4;
+    const sortOrder = 'desc';
+    const sortBy = 'rating'
+
     dispatch(setLoaded(false));
-    apiServices.getGoods('rating', catId, 'desc', 4).then(data => {
-        dispatch(setPopularGoods(data));
+    apiServices.getGoods(sortBy, catId, sortOrder, page, limit).then(data => {
+        dispatch(setPopularGoods(data.rows));
     })
 }
 
@@ -41,10 +48,28 @@ const setItemDetails = (itemDetails) => ({
     payload: itemDetails
 });
 
+const setPage = (pageNumber) => ({
+    type: 'SET_PAGE',
+    payload: pageNumber
+});
+
+const setLimit = (limitGoods) => ({
+    type: 'SET_LIMIT',
+    payload: limitGoods
+});
+
+const setTotalCount = (totalCount) => ({
+    type: 'SET_TOTAL_COUNT',
+    payload: totalCount
+});
+
 export {
     setGoods,
     fetchGoods,
     setLoaded,
     fetchPopularGoods,
-    fetchItemDetails
+    fetchItemDetails,
+    setPage,
+    setTotalCount,
+    setLimit
 };

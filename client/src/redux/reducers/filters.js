@@ -1,6 +1,6 @@
 const initialState = {
     activeCategory: null,
-    sortBy: 'rating',
+    sortBy: 'name',
     sortOrder: 'asc'
 }
 

@@ -14,12 +14,16 @@ import './App.scss';
 function App() {
   const dispatch = useDispatch();
   // const checkPath = window.location.pathname;
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     check().then(data => {
       dispatch(setIsAuth(true))
-    }).finally(() => setLoading(false))
+    }).finally(() => {
+      setLoading(false)
+    }
+    )
+
   }, [dispatch])
 
   if (loading) {

@@ -10,6 +10,7 @@ import './admin-products.scss'
 function AdminProductsAdd() {
     const dispatch = useDispatch();
     const { activeCategory, sortBy, sortOrder } = useSelector(({ filters }) => filters);
+    const { limit, page } = useSelector(({ goods }) => goods);
 
     const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -31,7 +32,7 @@ function AdminProductsAdd() {
             formData.append('img', product.img);
 
             createProduct(formData).then(data => {
-                dispatch(fetchGoods(sortBy, activeCategory, sortOrder));
+                dispatch(fetchGoods(sortBy, activeCategory, sortOrder, page, limit));
                 // setModalVisible(false);
             })
         } catch (e) {

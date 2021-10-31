@@ -1,11 +1,10 @@
 import { ListCheck } from 'react-bootstrap-icons';
-import { deleteCategory } from '../../../services/productsAPI';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Alert } from 'react-bootstrap';
 import { fetchCategories } from '../../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveCategory } from '../../../redux/actions';
 import EditCategoriesListItem from './edit-categories-list-item';
-import { updateCategory } from '../../../services/productsAPI';
+import { updateCategory, getProductByCatId, deleteCategory } from '../../../services/productsAPI';
 
 import React from 'react';
 
@@ -14,6 +13,7 @@ import './admin-categories.scss';
 function EditCategoriesList() {
     const dispatch = useDispatch();
     const { activeCategory, categories } = useSelector(({ filters }) => filters);
+    const [isError, setIsError] = React.useState(false)
 
     const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -23,29 +23,37 @@ function EditCategoriesList() {
 
     const closeModal = () => {
         setModalVisible(false)
+        setIsError(false);
     }
 
     const handleDelete = (id, index) => {
+        getProductByCatId(index).then(data => {
+            if (data) {
+                setIsError(true);
+                return;
+            }
 
-        if (activeCategory === index) {
-            dispatch(setActiveCategory(null));
-        }
+            if (activeCategory === index) {
+                dispatch(setActiveCategory(null));
+            }
 
-        deleteCategory(id).then(data => {
-            dispatch(fetchCategories());
+            deleteCategory(id).then(data => {
+                dispatch(fetchCategories());
+            })
+
+            isError && setIsError(false);
         })
     }
 
     const handleUpdate = (id, name) => {
-
         const formData = new FormData();
         formData.append('name', name);
 
         updateCategory(formData, id).then(data => {
-
             dispatch(fetchCategories());
-
         })
+
+        isError && setIsError(false);
     }
 
     const categoriesList = categories && categories.map((elem, index) => {
@@ -76,6 +84,10 @@ function EditCategoriesList() {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+
+                        {isError && <Alert variant='danger'>
+                            Помилка! Ви не можете видалити категорію, у якій знаходяться товари
+                        </Alert>}
 
                         <ul>
                             {categoriesList &&

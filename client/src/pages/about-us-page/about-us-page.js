@@ -11,31 +11,30 @@ const AboutUsPage = () => {
     const { isAuth } = useSelector(({ user }) => user);
 
     const [componentData, setComponentData] = React.useState({})
+    const [isLoading, setIsLoading] = React.useState(false)
 
     React.useEffect(() => {
-
-        setTimeout(() => {
-            updateInfo()
-        }, 500);
-
+        updateInfo()
     }, [])
 
     const updateInfo = () => {
         getComponentById(9).then(data => {
             setComponentData(data)
+        }).finally(() => {
+            setIsLoading(true)
         })
     }
 
-    const image = <img className="aboutus__preloader-img" src={`${process.env.REACT_APP_API_URL}components/${componentData.img}`} alt="poster" />
+    const image = componentData.img && <img className="aboutus__preloader-img" src={`${process.env.REACT_APP_API_URL}components/${componentData.img}`} alt="poster" />
 
     return (
-        <Container title={componentData.title}>
+        <Container title={componentData.title} isLoaded={isLoading}>
             {isAuth ? <AdminComponentsEdit data={componentData} updateData={updateInfo} /> : ''}
             <div className="row">
                 <div className="col-md-6 text-center">{image}</div>
                 <div className="col-md-6 about-us-text">
                     <div>
-                        {componentData ? parse(`${componentData.text}`) : ''}
+                        {componentData.text ? parse(`${componentData.text}`) : ''}
                     </div>
                 </div>
             </div>

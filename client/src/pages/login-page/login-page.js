@@ -14,12 +14,6 @@ function LoginPage() {
     const [password, setPassword] = React.useState('');
     const history = useHistory();
 
-    // чисто для тесту. просто міняю екшеном в редаксі логін! но звісно це треба робити правильно
-    // function handleSubmit(event) {
-    //     event.preventDefault();
-    //     dispatch(setIsAuth(!isAuth))
-    // }
-
     const signIn = async (event) => {
         event.preventDefault();
 

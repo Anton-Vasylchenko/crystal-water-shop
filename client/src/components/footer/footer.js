@@ -46,11 +46,8 @@ function Footer() {
                     </div>
 
                     <div className="col-12 col-md-4 d-flex align-items-center footer-block">
-
-
-
                         <div className="footer__icon">
-                            <img src={`${process.env.REACT_APP_API_URL}components/${addressInfo.img}`} className="img-fluid" alt="main logo" />
+                            {addressInfo.img && <img src={`${process.env.REACT_APP_API_URL}components/${addressInfo.img}`} className="img-fluid" alt="main logo" />}
                         </div>
 
                         <div className="footer__text">
@@ -60,12 +57,11 @@ function Footer() {
                         <div className="footer-editBtn">
                             {isAuth ? <AdminComponentsEdit data={addressInfo} updateData={updateAddress} /> : ''}
                         </div>
-
                     </div>
                     <div className="col-12 col-md-3 d-flex align-items-center footer-block">
 
                         <div className="footer__icon">
-                            <img src={`${process.env.REACT_APP_API_URL}components/${phonesInfo.img}`} className="img-fluid" alt="main logo" />
+                            {phonesInfo.img && <img src={`${process.env.REACT_APP_API_URL}components/${phonesInfo.img}`} className="img-fluid" alt="main logo" />}
                         </div>
 
                         <div className="footer__text">
@@ -80,7 +76,7 @@ function Footer() {
                     <div className="col-12 col-md-4 d-flex align-items-center footer-block">
 
                         <div className="footer__icon">
-                            <img src={`${process.env.REACT_APP_API_URL}components/${scheduleInfo.img}`} className="img-fluid" alt="main logo" />
+                            {scheduleInfo.img && <img src={`${process.env.REACT_APP_API_URL}components/${scheduleInfo.img}`} className="img-fluid" alt="main logo" />}
                         </div>
 
                         <div className="footer__text">

@@ -11,6 +11,7 @@ import emptyCartImg from '../../assets/images/cart-is-empty.png';
 
 export default function CartPage() {
     const dispatch = useDispatch();
+
     const { totalPrice,
         totalCount,
         items,

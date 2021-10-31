@@ -71,7 +71,7 @@ function SortPopup() {
                         {elements}
                     </ul>
                 </div>}
-        </div >
+        </div>
     )
 }
 

@@ -1,15 +1,14 @@
 
 const nodemailer = require('nodemailer');
+const path = require('path');
 const ApiError = require('../error/ApiError');
+const productController = require('../controllers/productController');
 
 class SendController {
-
-    // category: category,
-    // _sort: sortBy,
-    // _order: sortOrder
-
     async sendEmail(req, res) {
-        const { name, phone } = req.body
+        const { name, phone, totalPrice, items, idArray } = req.body
+
+        const goodsId = idArray.split(',');
 
         let transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -20,12 +19,14 @@ class SendController {
         });
 
         let mailOptions = {
-            from: 'noreply@richpost.com',
-            to: 'stdavinchi@gmail.com',
+            from: 'crystal.water.website@gmail.com',
+            to: 'kryshtalevavoda@gmail.com',
             subject: 'Замовлення на сайті',
-            text: `
-                Ім'я: ${name};
-                Телефон: ${phone};
+            html: `
+                <b>Ім'я:</b> ${name};<br>
+                <b>Телефон:</b> ${phone};<br><br>
+                ${items}<br>
+                <b>Загальна сума:</b> ${totalPrice} грн.                
             `
         };
 
@@ -36,6 +37,23 @@ class SendController {
                 return 'Email sent: ' + info.response
             }
         });
+
+        for (let i = 0; i < goodsId.length; i++) {
+            productController.increaseRating(goodsId[i]);
+        }
+
+    }
+
+    async saveOrder() {
+        try {
+
+            img.mv(path.resolve(__dirname, '..', 'static/products', fileName))
+            const product = await Product.create({ name, price, categoryId, description, img: fileName })
+
+            return res.json(product)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
     }
 
 }

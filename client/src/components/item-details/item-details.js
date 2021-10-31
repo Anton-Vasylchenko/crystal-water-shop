@@ -10,16 +10,13 @@ import './item-details.scss';
 function ItemDetails({ itemId }) {
     const dispatch = useDispatch();
     const { itemDetails, isLoaded } = useSelector(({ goods }) => goods);
-    // const { isAuth } = useSelector(({ user }) => user);
-
-    // const [details, setdetails] = React.useState(''); test
+    const { isAuth } = useSelector(({ user }) => user);
 
     const cartItems = useSelector(({ cart }) => cart.items);
     const countOfAdded = cartItems[itemId] && cartItems[itemId].length;
 
     useEffect(() => {
         dispatch(fetchItemDetails(itemId));
-        // Object.keys(itemDetails).length && setdetails(itemDetails); test
     }, [dispatch, itemId])
 
     const handleAddItemToCart = () => {
@@ -32,25 +29,26 @@ function ItemDetails({ itemId }) {
             handleAddItemToCart={handleAddItemToCart}
             countOfAdded={countOfAdded}
             itemDetails={itemDetails}
+            isAdmin={isAuth}
         />
     )
 }
 
-const ItemDetailsView = ({ isLoaded, handleAddItemToCart, countOfAdded, itemDetails }) => {
-
+const ItemDetailsView = ({ isLoaded, handleAddItemToCart, countOfAdded, itemDetails, isAdmin }) => {
     return (
         <React.Fragment>
             <Container title={itemDetails.name} backArrow>
 
-                {Object.keys(itemDetails).length
-                    && <AdminProductsEdit itemDetails={itemDetails} />}
+                {isAdmin && Object.keys(itemDetails).length
+                    ? <AdminProductsEdit itemDetails={itemDetails} /> : ''}
 
                 {!isLoaded ? <Spinner /> :
                     <div className="item-details">
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="item-details__image">
-                                    <img src={`${process.env.REACT_APP_API_URL}products/${itemDetails.img}`} alt="item pictures" />
+                                    {itemDetails.img &&
+                                        <img src={`${process.env.REACT_APP_API_URL}products/${itemDetails.img}`} alt="item pictures" />}
                                 </div>
                             </div>
                             <div className="col-md-6">

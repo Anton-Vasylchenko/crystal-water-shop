@@ -12,6 +12,7 @@ export { default as ShopItemsList } from './shop-items-list';
 export { default as Error404 } from './error-404';
 export { default as PopupWindow } from './popup-window';
 export { default as FormBuy } from './form-buy';
+export { default as PagePagination } from './page-pagination';
 export { Row, Container } from './grid-elements';
 
 // shop filter components

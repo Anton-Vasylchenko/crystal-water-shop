@@ -45,6 +45,11 @@ export const getComponentById = async (id) => {
     return data;
 }
 
+export const getProductByCatId = async (id) => {
+    const { data } = await $host.get('api/product/byCategory/' + id)
+    return data;
+}
+
 // advantages
 
 export const createAdvantages = async (advantage) => {
