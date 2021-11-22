@@ -1,5 +1,5 @@
 import React from 'react';
-import PopupDelete from '../modals/popup-delete';
+import PopupDelete from '../popup-delete/popup-delete';
 import { deleteProduct } from '../../../services/productsAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGoods } from '../../../redux/actions';

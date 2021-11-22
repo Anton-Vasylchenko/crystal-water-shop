@@ -1,45 +1,34 @@
 import React from 'react'
-import { Container, Map } from '../../components';
+import Container from '../../components/UI/container';
+import Map from '../../components/Layout/map';
 import { useSelector } from 'react-redux';
 import { AdminComponentsEdit } from '../../components/admin/admin-components';
-import { getComponentById } from '../../services/productsAPI';
 import parse from 'html-react-parser';
+import { ComponentName } from '../../utils/consts';
+import usePage from '../../hooks/usePage';
 
 import './contacts-page.scss';
 
 export default function ContactsPage() {
-    const { isAuth } = useSelector(({ user }) => user);
+    const { isAuth, role } = useSelector(({ user }) => user);
 
-    const [componentData, setComponentData] = React.useState({})
-    const [isLoading, setIsLoading] = React.useState(false)
-
-    React.useEffect(() => {
-        updateInfo();
-    }, [])
-
-    const updateInfo = () => {
-        getComponentById(2).then(data => {
-            setComponentData(data)
-        }).finally(() => {
-            setIsLoading(true);
-        })
-    }
+    const { data, isLoading, update } = usePage(ComponentName.CONTACTS)
 
     return (
         <div className="contacts">
-            <Container title={componentData.title} isLoaded={isLoading}>
-                {isAuth ? <AdminComponentsEdit data={componentData} updateData={updateInfo} /> : ''}
+            <Container title={data.title} isLoaded={isLoading}>
+                {isAuth && role === 'ADMIN' ? <AdminComponentsEdit data={data} updateData={update} /> : ''}
 
                 <div className="row">
                     <div className="col-md-6">
                         <div className="contacts-text">
-                            {componentData ? parse(`${componentData.text}`) : ''}
+                            {data ? parse(`${data.text}`) : ''}
                         </div>
                     </div>
 
                     <div className="col-md-6">
                         <div className="page-img">
-                            {componentData.img && <img src={`${process.env.REACT_APP_API_URL}components/${componentData.img}`} alt="poster" />}
+                            {data.img && <img src={`${process.env.REACT_APP_API_URL}components/${data.img}`} alt="poster" />}
                         </div>
                     </div>
                 </div>

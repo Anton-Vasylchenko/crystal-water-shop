@@ -3,7 +3,7 @@ import { PencilSquare } from 'react-bootstrap-icons';
 import { TrashFill } from 'react-bootstrap-icons';
 import { CheckLg } from 'react-bootstrap-icons';
 import { Button, Form } from 'react-bootstrap';
-import PopupDelete from '../modals/popup-delete';
+import PopupDelete from '../popup-delete/popup-delete';
 
 import './admin-categories.scss';
 
@@ -47,6 +47,7 @@ function EditCategoriesListItem({ name, id, index, handleDelete, handleUpdate })
                 handleNo={onCancelDelete}
                 handleYes={onDelete}
                 name={name}
+                z-index={100}
             />
 
             <li className="list-group-item text-center" key={`${id}`}>

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Container, ShopItem, Spinner } from '../';
+import Container from '../UI/container';
+import Spinner from '../UI/spinner';
+import ShopItem from '../shop-item';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPopularGoods, addItemToCart } from '../../redux/actions';
 

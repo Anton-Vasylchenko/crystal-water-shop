@@ -6,5 +6,8 @@ const authMiddleware = require('../middleware/authMiddleware')
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
 router.get('/auth', authMiddleware, userController.check)
+router.get('/', userController.getAll)
+router.patch('/:id', userController.updateRole)
+router.patch('/updateUser/:id', userController.updateUser)
 
 module.exports = router

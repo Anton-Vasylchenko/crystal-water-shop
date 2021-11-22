@@ -1,9 +1,12 @@
 import React from 'react'
-import { ShopItem, Spinner } from '../';
+import ShopItem from '../shop-item';
+import Spinner from '../UI/spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchGoods, addItemToCart, setPage } from '../../redux/actions';
 import { AdminProductsAdd } from '../admin/admin-products';
-import PagePagination from '../page-pagination';
+import PagePagination from '../UI/page-pagination';
+import Pagination from '../UI/pagination';
+import { UserRoles } from '../../utils/consts';
 
 import './shop-items-list.scss';
 
@@ -13,7 +16,7 @@ function ShopItemsList() {
     const cartItems = useSelector(({ cart }) => cart.items);
     const { items, isLoaded, totalCount, limit, page } = useSelector(({ goods }) => goods);
     const { activeCategory, sortBy, sortOrder } = useSelector(({ filters }) => filters);
-    const { isAuth } = useSelector(({ user }) => user);
+    const { isAuth, role } = useSelector(({ user }) => user);
 
     React.useEffect(() => {
         dispatch(fetchGoods(sortBy, activeCategory, sortOrder, page, limit));
@@ -27,13 +30,17 @@ function ShopItemsList() {
         dispatch(setPage(pageNumber));
     }
 
+    const isAdmin = isAuth && role === UserRoles.ADMIN;
+    const isModerator = isAuth && role === UserRoles.MODERATOR;
+
     const loadingGoods = !isLoaded ? <Spinner /> : items.map((item) => {
         const countOfAdded = cartItems[item.id] && cartItems[item.id].length;
         return <ShopItem
             onClickBuyBtn={handleAddItemToCart}
             key={item.id}
             countOfAdded={countOfAdded}
-            adminAuth={isAuth}
+            isAdmin={isAdmin}
+            isModerator={isModerator}
             {...item}
         />
     })
@@ -46,9 +53,16 @@ function ShopItemsList() {
 
     return (
         <div className="shop-items-list">
-            {isAuth ? <AdminProductsAdd /> : ''}
+            {isAdmin || isModerator ? <AdminProductsAdd /> : ''}
             {goodsList}
-            <PagePagination itemsCount={totalCount} limit={limit} currentPage={page} changePage={handleChangePage} />
+
+            <Pagination
+                className="pagination-bar"
+                currentPage={page}
+                totalCount={totalCount}
+                pageSize={limit}
+                onPageChange={page => handleChangePage(page)}
+            />
         </div>
     )
 }

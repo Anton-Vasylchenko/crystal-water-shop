@@ -1,29 +1,38 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setIsAuth } from '../redux/actions';
+import { setIsAuth, setUser } from '../redux/actions';
 import { Route, Switch } from 'react-router-dom';
-import { Header, Footer, ItemDetails, Error404 } from '../components';
-import { check } from '../services/userAPI';
-import { Spinner } from '../components';
 
+import Header from '../components/Layout/header';
+import Footer from '../components/Layout/footer';
+import ItemDetails from '../components/item-details';
+import Error404 from '../components/error-404';
+import Spinner from '../components/UI/spinner';
 import * as Pages from '../pages';
+import UsersList from '../components/admin/users-list';
+import { Routes } from '../utils/consts';
+import OrdersList from '../components/orders-list';
+import { useSelector } from 'react-redux';
+
+import { check } from '../services/userAPI';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
+import UserProfile from '../components/user/user-profile';
 
 function App() {
   const dispatch = useDispatch();
-  // const checkPath = window.location.pathname;
   const [loading, setLoading] = React.useState(false);
+
+  const { isAuth } = useSelector(({ user }) => user);
 
   React.useEffect(() => {
     check().then(data => {
       dispatch(setIsAuth(true))
+      dispatch(setUser(data))
     }).finally(() => {
       setLoading(false)
-    }
-    )
-
+    })
   }, [dispatch])
 
   if (loading) {
@@ -34,20 +43,31 @@ function App() {
     <div>
       <Header />
       <Switch>
-        <Route exact path="/" component={Pages.HomePage} />
-        <Route exact path="/about-us" component={Pages.AboutUsPage} />
-        <Route exact path="/contacts" component={Pages.ContactsPage} />
-        <Route exact path="/payment-delivery" component={Pages.PaymentDeliveryPage} />
-        <Route exact path="/cart" component={Pages.CartPage} />
-        <Route path="/shop" exact component={Pages.ShopPage} />
-        <Route path="/shop/:id" render={({ match }) => {
+        <Route exact path={Routes.HOME_ROUTE} component={Pages.HomePage} />
+        <Route exact path={Routes.ABOUT_ROUTE} component={Pages.AboutUsPage} />
+        <Route exact path={Routes.CONTACTS_ROUTE} component={Pages.ContactsPage} />
+        <Route exact path={Routes.PAYMENT_DELIVERY_ROUTE} component={Pages.PaymentDeliveryPage} />
+        <Route exact path={Routes.CART_ROUTE} component={Pages.CartPage} />
+        <Route path={Routes.SHOP_ROUTE} exact component={Pages.ShopPage} />
+
+        <Route path={Routes.SHOP_ITEM_ROUTE} render={({ match }) => {
           return <ItemDetails itemId={match.params.id} exact />
         }} />
-        <Route path="/user-login" component={Pages.LoginPage} />
+
+        <Route path={Routes.LOGIN_ROUTE} component={Pages.AuthPage} />
+        <Route path={Routes.REGISTRATION_ROUTE} component={Pages.AuthPage} />
+
+        {isAuth &&
+          <>
+            <Route path={Routes.ORDERS_LIST} component={OrdersList} />
+            <Route path={Routes.USERS_LIST} component={UsersList} />
+            <Route path={Routes.USER_PROFILE} component={UserProfile} />
+          </>
+        }
+
         <Route path="*" component={Error404} />
       </Switch>
       <Footer />
-      {/* {(checkPath !== '/user-login') ? <Footer /> : ''} */}
     </div >
   );
 }

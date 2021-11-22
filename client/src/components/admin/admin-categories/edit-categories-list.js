@@ -94,8 +94,8 @@ function EditCategoriesList() {
                                 categoriesList.length === 0 ?
                                 <p className="text-center text-muted">Категорії відсутні</p> : categoriesList}
                         </ul>
-
                     </Modal.Body>
+
                     <Modal.Footer>
                         <Button variant="outline-danger" onClick={closeModal}>Закрити</Button>
                     </Modal.Footer>

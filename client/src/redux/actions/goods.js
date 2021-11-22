@@ -29,6 +29,7 @@ const fetchPopularGoods = (catId) => (dispatch) => {
 const fetchItemDetails = (id) => (dispatch) => {
     dispatch(setLoaded(false));
     apiServices.getShopItemById(id).then(data => {
+        console.log(data)
         dispatch(setItemDetails(data));
     })
 }

@@ -27,6 +27,21 @@ class ComponentController {
         }
     }
 
+    async getByName(req, res, next) {
+        try {
+            const { name } = req.params;
+            console.log(name);
+            const component = await Component.findAll({
+                where: { componentName: name }, order: [
+                    ['id', 'ASC']
+                ],
+            });
+            return res.json(component);
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
     async create(req, res, next) {
         try {
             const { title, text } = req.body

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { PopupWindow } from '../';
+import { Modal, Button } from 'react-bootstrap';
 
 import './cart-item.scss';
 
@@ -52,11 +52,20 @@ const CartItem = (props) => {
                 </div>
             </div>
 
-            <PopupWindow show={showPopup}>
-                <span>Ви дійсно бажаєте видалити <b>"{name}"?</b></span>
-                <button className="btn btn-info" onClick={handleClickedYes}>Так</button>
-                <button className="btn btn-info" onClick={handleRemoveClick}>Ні</button>
-            </PopupWindow>
+            <Modal animation={true} show={showPopup} onHide={handleRemoveClick}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Видалення товару</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Ви дійсно бажаєте видалити <b>"{name}"?</b></Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleRemoveClick}>
+                        Ні
+                    </Button>
+                    <Button variant="primary" onClick={handleClickedYes}>
+                        Так
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </li>
     )
 }

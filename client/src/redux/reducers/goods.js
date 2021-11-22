@@ -3,7 +3,7 @@ const initialState = {
     itemDetails: {},
     page: 1,
     totalCount: 0,
-    limit: 12,
+    limit: 8,
     isLoaded: false
 }
 

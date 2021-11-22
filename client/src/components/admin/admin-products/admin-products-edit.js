@@ -11,11 +11,12 @@ import './admin-products.scss';
 
 function AdminProductsEdit({ itemDetails }) {
     const dispatch = useDispatch();
-    const [modalVisible, setModalVisible] = React.useState(false);
 
+    const [modalVisible, setModalVisible] = React.useState(false);
     const [error, setError] = React.useState(false);
     const [nameCount, setNameCount] = React.useState(itemDetails.name.length);
     const [itemCatId, setItemCatId] = React.useState(itemDetails.categoryId);
+    const [selectedImage, setSelectedImage] = React.useState('')
 
     const [inputsValue, setInputsValue] = React.useState({
         ...itemDetails
@@ -30,6 +31,8 @@ function AdminProductsEdit({ itemDetails }) {
         setInputsValue({
             ...itemDetails
         });
+
+        setSelectedImage('');
     }
 
     const closeModal = () => {
@@ -50,14 +53,11 @@ function AdminProductsEdit({ itemDetails }) {
             formData.append('categoryId', product.categoryId);
             updateProduct(formData, itemDetails.id).then(data => {
                 dispatch(fetchItemDetails(itemDetails.id));
-                // setModalVisible(false);
             })
         } catch (e) {
             alert(e.response.data.message)
         }
     }
-
-    // -------------------------------------
 
     const updateState = (field, newValue) => {
         field === 'name' && setNameCount(newValue.length);
@@ -82,7 +82,6 @@ function AdminProductsEdit({ itemDetails }) {
             }
         }
 
-
         if (!inputsValue.name.replace(/\s/g, '').length) {
             showErrorMsg('Помилка! Товар не може бути без назви!');
             return;
@@ -100,12 +99,13 @@ function AdminProductsEdit({ itemDetails }) {
             }
         }
 
-        if (nameCount > 27) {
-            showErrorMsg(`Помилка! Ім'я не повинно перевищувати 27 символів`);
+        if (nameCount > 40) {
+            showErrorMsg(`Помилка! Ім'я не повинно перевищувати 40 символів`);
             return;
         }
 
-        if (inputsValue.price > 2147483647) {
+        if (+inputsValue.price > Number.MAX_SAFE_INTEGER) {
+            console.log('dfsdfdsfdsfdsfdsfdsf')
             showErrorMsg(`Помилка! Невірно вказана ціна`);
             return;
         }
@@ -134,6 +134,8 @@ function AdminProductsEdit({ itemDetails }) {
     }
 
     const selectFile = (e) => {
+        setSelectedImage(e.target.files[0]);
+
         setInputsValue({
             ...inputsValue,
             img: e.target.files[0]
@@ -163,6 +165,9 @@ function AdminProductsEdit({ itemDetails }) {
         )
     })
 
+    const imgUrl = selectedImage.length === 0 ?
+        `${process.env.REACT_APP_API_URL}products/${inputsValue.img}` : URL.createObjectURL(selectedImage);
+
     return (
         <>
             <div className="editBtn" onClick={onShow}>
@@ -184,7 +189,7 @@ function AdminProductsEdit({ itemDetails }) {
                             <Form.Group as={Col} controlId="formGridName">
                                 <Form.Label>
                                     <b>Назва: <span
-                                        className={nameCount > 27 ? 'text-danger' : ''}>
+                                        className={nameCount > 40 ? 'text-danger' : ''}>
                                         ({nameCount})</span>
                                     </b>
                                 </Form.Label>
@@ -197,7 +202,7 @@ function AdminProductsEdit({ itemDetails }) {
                             </Form.Group>
 
                             <div className="item-details__image mt-2">
-                                <img src={`${process.env.REACT_APP_API_URL}products/${itemDetails.img}`} alt="item pictures" />
+                                <img src={imgUrl} alt="item pictures" />
                             </div>
 
                             <Form.Group as={Col} controlId="formGridImage" className="mt-4">

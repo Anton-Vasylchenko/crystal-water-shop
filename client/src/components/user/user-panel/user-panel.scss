@@ -1,0 +1,65 @@
+.user-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  background: rgb(27, 105, 88);
+  border-radius: 30px;
+  padding: 5px;
+  height: 37px;
+}
+
+.user-img {
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.user-panel img {
+  object-fit: cover;
+  width: 30px;
+  height: 30px;
+}
+
+.user-name {
+  margin: 5px;
+}
+
+.user-name a {
+  display: block;
+  margin: 5px;
+}
+
+#dropdown-basic-button {
+  background: none;
+  border: none;
+}
+
+#dropdown-basic-button {
+  background: none;
+  border: none;
+
+  &:enabled {
+    box-shadow: none;
+    border: none;
+  }
+
+  .dropdown-item:hover {
+    background: #000;
+  }
+}
+.dropdown-link {
+  padding: 5px;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 992px) {
+  .user-panel {
+    height: 33px;
+  }
+
+  .user-panel img {
+    width: 25px;
+  }
+}

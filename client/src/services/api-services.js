@@ -31,6 +31,42 @@ class ApiServices {
     return data;
   }
 
+  getOrders = async (page, limit, userId) => {
+    console.log(userId)
+    const { data } = await axios.get(`${this._baseUrl}order`, {
+      params: {
+        userId,
+        limit,
+        page
+      }
+    })
+
+    return data;
+  }
+
+  getOrdersItems = async (orderId) => {
+    const { data } = await axios.get(`${this._baseUrl}order/items`, {
+      params: {
+        orderId: orderId
+      }
+    });
+
+    console.log(data);
+
+    return data;
+  }
+
+  getUsers = async (limit, page) => {
+    const { data } = await axios.get(`${this._baseUrl}user`, {
+      params: {
+        limit: limit,
+        page: page
+      }
+    })
+
+    return data;
+  }
+
   getProductByCatId = async (catId) => {
     const { data } = await axios.get(`${this._baseUrl}product/byCategory/${catId}`)
     return data;
@@ -40,7 +76,6 @@ class ApiServices {
     const { data } = await axios.get(`${this._baseUrl}product/${id}`)
     return data;
   }
-
 
   getShopCategories = async () => {
     const items = await this.getResource(`category`);

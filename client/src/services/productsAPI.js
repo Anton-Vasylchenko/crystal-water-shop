@@ -40,8 +40,8 @@ export const updateComponent = async (id, item) => {
     return data
 }
 
-export const getComponentById = async (id) => {
-    const { data } = await $host.get('api/component/' + id)
+export const getComponentInfoByName = async (name) => {
+    const { data } = await $host.get('api/component/getByName/' + name)
     return data;
 }
 

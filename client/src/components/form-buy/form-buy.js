@@ -2,8 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Form, Button, Col, Alert } from 'react-bootstrap';
 import { sendEmail } from '../../services/sendMail';
-import helpers from '../helpers/helpers';
+import emailTemplate from '../../utils/emailTemplate';
 import { clearCart } from "../../redux/actions"
+import { serialize } from 'object-to-formdata';
 
 import './form-buy.scss';
 
@@ -11,6 +12,7 @@ function FormBuy() {
     const dispatch = useDispatch();
     const [enteredName, setEnteredName] = React.useState('');
     const [enteredPhone, setEnteredPhone] = React.useState('');
+    const [enteredEmail, setEnteredEmail] = React.useState('');
 
     const [showPopup, setShowPopup] = React.useState(false);
     const [showMsg, setShowMsg] = React.useState(false);
@@ -19,6 +21,8 @@ function FormBuy() {
     const { totalPrice,
         items
     } = useSelector(({ cart }) => cart);
+
+    const { id } = useSelector(({ user }) => user);
 
     const handleNo = () => {
         setShowPopup(false);
@@ -47,17 +51,40 @@ function FormBuy() {
 
     const sendOrderToEmail = () => {
         try {
-            const formData = new FormData();
-            const emailMsg = helpers.createEmailTemplate(items);
-            const id = helpers.getIdFormCart(items);
 
-            formData.append('name', enteredName);
-            formData.append('phone', enteredPhone);
-            formData.append('totalPrice', totalPrice);
-            formData.append('items', emailMsg);
-            formData.append('idArray', id);
+            const itemOrders = {};
+
+            for (let key in items) {
+                itemOrders[key] = { ...items[key][0] };
+                itemOrders[key].count = items[key].length;
+                itemOrders[key].userId = id;
+            }
+
+            const formData = serialize(
+                itemOrders
+            );
 
             sendEmail(formData);
+
+            // this is work
+
+            // const formData = new FormData();
+
+            // const emailMsg = emailTemplate(items);
+            // const ids = getIdsItemsFormCart(items);
+            // const itemsCount = getItemsCountFromCart(items);
+            // const orderNumber = uuid();
+
+            // formData.append('name', enteredName);
+            // formData.append('email', enteredEmail);
+            // formData.append('phone', enteredPhone);
+            // formData.append('emailMsg', emailMsg);
+            // formData.append('idArray', ids);
+            // formData.append('itemsCount', itemsCount);
+            // formData.append('totalPrice', totalPrice);
+            // formData.append('orderNumber', orderNumber);
+            // formData.append('userId', id);
+
 
         } catch (e) {
             alert(e.response.data.message)
@@ -72,6 +99,11 @@ function FormBuy() {
     const phoneChangeHandler = (e) => {
         setError('');
         setEnteredPhone(e.target.value);
+    }
+
+    const emailChangeHandler = (e) => {
+        setError('');
+        setEnteredEmail(e.target.value);
     }
 
     const handleMsgClose = () => {
@@ -139,6 +171,21 @@ function FormBuy() {
                                         value={enteredPhone}
                                         onChange={phoneChangeHandler}
                                         placeholder="Введіть, будь ласка, ваш мобільний номер"
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+                            <br />
+
+                            <Form.Row>
+                                <Form.Group as={Col} controlId="formGridName">
+                                    <Form.Label>
+                                        Електронна скринька
+                                    </Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={enteredEmail}
+                                        onChange={emailChangeHandler}
+                                        placeholder="Введіть, будь ласка, ваш email"
                                     />
                                 </Form.Group>
                             </Form.Row>

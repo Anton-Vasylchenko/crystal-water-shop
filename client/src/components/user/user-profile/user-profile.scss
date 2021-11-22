@@ -1,0 +1,39 @@
+.user-profile {
+  display: flex;
+  &__item {
+    margin: 20px;
+    display: flex;
+    vertical-align: center;
+    align-items: center;
+    span {
+      font-weight: bold;
+      margin: 0 5px;
+    }
+  }
+  &__image {
+    border-radius: 20px;
+    img {
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+  }
+}
+
+.user-info {
+  width: 100%;
+  border-radius: 10px;
+  margin: 0 20px;
+  border: 1px solid rgb(195, 195, 195);
+  position: relative;
+
+  .edit-profile-btn {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    &:hover {
+      color: rgb(59, 117, 224);
+    }
+  }
+}

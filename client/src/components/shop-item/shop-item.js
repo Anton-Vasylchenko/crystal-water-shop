@@ -1,24 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AdminProductDelete } from '../admin/admin-products';
+import { UserRoles } from '../../utils/consts';
 
 import './shop-item.scss';
 
-function ShopItem({ id, name, img, price, onClickBuyBtn, countOfAdded, adminAuth }) {
+function ShopItem({ id, name, img, price, onClickBuyBtn, countOfAdded, isAdmin, isModerator }) {
 
     const onAddItem = () => {
+
         const obj = {
             id,
             name,
             img,
             price
         };
+
         onClickBuyBtn(obj);
     }
 
     return (
         <div className="shop-item">
-            {adminAuth && <AdminProductDelete name={name} id={id} />}
+            {isAdmin || isModerator ? <AdminProductDelete name={name} id={id} /> : ''}
             <div className="shop-item__img">
                 <img src={`${process.env.REACT_APP_API_URL}products/${img}`} alt="poster" />
             </div>

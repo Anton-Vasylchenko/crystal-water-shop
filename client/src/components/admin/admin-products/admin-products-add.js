@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateProduct from '../modals/create-product';
+import AdminProductsForm from './admin-products-form';
 import { Button } from 'react-bootstrap';
 import { createProduct } from '../../../services/productsAPI';
 import { useSelector, useDispatch } from 'react-redux';
@@ -43,7 +43,7 @@ function AdminProductsAdd() {
     return (
         <div className="addBtnProduct text-center mb-4">
             <Button onClick={onShow}> Додати продукт </Button>
-            <CreateProduct
+            <AdminProductsForm
                 show={modalVisible}
                 handleNo={closeModal}
                 handleSubmit={handleSubmit}

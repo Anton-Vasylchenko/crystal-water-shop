@@ -2,15 +2,16 @@ import React from 'react';
 import { fetchAdvantages } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import AdvantagesListItem from './advantages-list-item';
-import { AdminAdvantagesCreate } from '../admin/admin-advantages';
+import { AdvantagesCreate } from '../admin/admin-advantages';
+import { UserRoles } from '../../utils/consts';
 
-import { Container } from '../';
+import Container from '../UI/container';
 
 import './advantages-list.scss';
 
 function AdvantagesList() {
     const dispatch = useDispatch();
-    const { isAuth } = useSelector(({ user }) => user);
+    const { isAuth, role } = useSelector(({ user }) => user);
 
     const { advantagesList, isLoaded } = useSelector(({ advantages }) => {
         return {
@@ -25,7 +26,7 @@ function AdvantagesList() {
 
     return (
         <Container title="Чому обирають нашу воду?" isLoaded={isLoaded}>
-            {isAuth && <AdminAdvantagesCreate />}
+            {isAuth && role === UserRoles.ADMIN && <AdvantagesCreate />}
 
             <div className="advantages-wrapper">
                 {

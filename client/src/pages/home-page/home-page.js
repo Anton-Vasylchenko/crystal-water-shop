@@ -1,51 +1,39 @@
 import React from 'react'
-import { Container, PopularProducts, AdvantagesList } from '../../components';
+import Container from '../../components/UI/container';
+import PopularProducts from '../../components/popular-products';
+import AdvantagesList from '../../components/advantages-list';
 import { useSelector } from 'react-redux';
-import Map from '../../components/map/map';
+import Map from '../../components/Layout/map';
 import { AdminComponentsEdit } from '../../components/admin/admin-components';
-import { getComponentById } from '../../services/productsAPI';
+import usePage from '../../hooks/usePage';
 
 import parse from 'html-react-parser';
 
 import './home-page.scss';
+import { ComponentName } from '../../utils/consts';
 
 export default function HomePage() {
-    const { isAuth } = useSelector(({ user }) => user);
-    const [componentData, setComponentData] = React.useState({})
-    const [isLoading, setIsLoading] = React.useState(false)
+    const { isAuth, role } = useSelector(({ user }) => user);
 
-    React.useEffect(() => {
-        updateInfo();
-    }, [])
-
-    const updateInfo = () => {
-        getComponentById(1).then(data => {
-            setComponentData(data)
-        }).finally(() => {
-            setIsLoading(true)
-        })
-    }
+    const { data, isLoading, update } = usePage(ComponentName.HOME);
 
     return (
         <div>
             <Container isLoaded={isLoading}>
-                {isAuth ? <AdminComponentsEdit data={componentData} updateData={updateInfo} /> : ''}
+                {isAuth && role === 'ADMIN' ? <AdminComponentsEdit data={data} updateData={update} /> : ''}
 
                 <div className="home">
                     <div className="home__img">
-                        {componentData.img && <img src={`${process.env.REACT_APP_API_URL}components/${componentData.img}`} className="img-fluid" alt="main logo" />}
+                        {data.img && <img src={`${process.env.REACT_APP_API_URL}components/${data.img}`} className="img-fluid" alt="main logo" />}
                     </div>
 
                     <div className="home__text">
-                        {componentData ? parse(`${componentData.text}`) : ''}
+                        {data ? parse(`${data.text}`) : ''}
                     </div>
                 </div>
             </Container>
-
             <AdvantagesList />
-
             <PopularProducts title={"Популярні товари"} />
-
             <Map />
         </div>
     )

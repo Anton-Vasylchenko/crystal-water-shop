@@ -1,5 +1,8 @@
 import React from 'react'
-import { CategoriesList, SortPopup, Container, ShopItemsList } from '../../components';
+import CategoriesList from '../../components/categories-list';
+import ShopItemsList from '../../components/shop-items-list';
+import Container from '../../components/UI/container';
+import SortPopup from '../../components/sort-filter/sort-popup';
 
 import './shop-page.scss';
 

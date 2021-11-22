@@ -48,6 +48,9 @@ const User = sequelize.define('user', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     email: { type: DataTypes.STRING, unique: true },
     password: { type: DataTypes.STRING },
+    phone: { type: DataTypes.STRING, defaultValue: null },
+    name: { type: DataTypes.STRING },
+    image: { type: DataTypes.STRING, defaultValue: null },
     role: { type: DataTypes.STRING, defaultValue: "USER" },
 });
 
@@ -68,9 +71,10 @@ const Category = sequelize.define('category', {
 
 const Component = sequelize.define('component', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    componentName: { type: DataTypes.STRING, unique: false, allowNull: false },
     title: { type: DataTypes.STRING, unique: true, allowNull: false },
     text: { type: DataTypes.TEXT, allowNull: true },
-    img: { type: DataTypes.STRING, allowNull: false },
+    img: { type: DataTypes.STRING, allowNull: false }
 });
 
 const Advantages = sequelize.define('advantages', {
@@ -79,6 +83,24 @@ const Advantages = sequelize.define('advantages', {
     img: { type: DataTypes.STRING, allowNull: false },
 });
 
+const OrdersItems = sequelize.define('orders_items', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    userId: { type: DataTypes.STRING, unique: false, allowNull: false },
+    goodsId: { type: DataTypes.STRING, unique: false, allowNull: false },
+    orderNumber: { type: DataTypes.STRING, unique: false, allowNull: false },
+    name: { type: DataTypes.STRING, unique: false, allowNull: false },
+    img: { type: DataTypes.STRING, unique: false, allowNull: false },
+    price: { type: DataTypes.STRING, unique: false, allowNull: false },
+    count: { type: DataTypes.STRING, unique: false, allowNull: false },
+});
+
+const OrdersList = sequelize.define('orders_list', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    userId: { type: DataTypes.STRING, unique: false, allowNull: false },
+    orderNumber: { type: DataTypes.STRING, unique: false, allowNull: false },
+    amount: { type: DataTypes.STRING, unique: false, allowNull: false }
+});
+
 module.exports = {
-    User, Advantages, Product, Component, Category
+    User, Advantages, Product, Component, Category, OrdersItems, OrdersList
 }

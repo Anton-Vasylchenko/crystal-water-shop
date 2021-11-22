@@ -1,0 +1,37 @@
+.orders-item-list {
+  border: 1px solid rgb(189, 189, 189);
+  border-radius: 5px;
+  margin: 10px 0;
+  &__total {
+    width: 100%;
+    text-align: right;
+    padding: 0px 10px 20px 10px;
+    font-weight: bold;
+  }
+
+  span {
+    color: grey;
+  }
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__section {
+    width: 30%;
+    text-align: center;
+  }
+  &__images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 50px;
+      margin: 5px;
+    }
+  }
+  span {
+    color: grey;
+  }
+}

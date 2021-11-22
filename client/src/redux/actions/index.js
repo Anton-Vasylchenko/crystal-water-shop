@@ -3,6 +3,7 @@ import { setGoods, fetchGoods, setLoaded, fetchPopularGoods, fetchItemDetails, s
 import { setAdvantages, fetchAdvantages } from './advantages';
 import { addItemToCart, clearCart, removeCartItem, plusCartItem, minusCartItem } from './cart';
 import { setIsAuth, setUser } from './user';
+import { setOrders, fetchOrders, setOrdersLoaded, setOrdersPage, setOrdersLimit, setOrdersTotalCount } from './orders';
 
 export {
     setGoods,
@@ -26,5 +27,6 @@ export {
     setUser,
     setPage,
     setLimit,
-    setTotalCount
+    setTotalCount,
+    setOrders, fetchOrders, setOrdersLoaded, setOrdersPage, setOrdersLimit, setOrdersTotalCount
 }

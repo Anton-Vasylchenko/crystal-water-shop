@@ -8,4 +8,9 @@ const setUser = (user) => ({
     payload: user
 });
 
-export { setIsAuth, setUser };
+const setRole = (role) => ({
+    type: 'SET_ROLE',
+    payload: role
+});
+
+export { setIsAuth, setUser, setRole };

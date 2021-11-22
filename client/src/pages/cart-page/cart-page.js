@@ -1,6 +1,9 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, CartItem, PopupWindow, FormBuy } from '../../components';
+import Container from '../../components/UI/container';
+import CartItem from '../../components/cart-item';
+import FormBuy from '../../components/form-buy';
+import { Modal, Button } from 'react-bootstrap';
 
 import { clearCart, removeCartItem, minusCartItem, addItemToCart } from "../../redux/actions"
 
@@ -21,8 +24,8 @@ export default function CartPage() {
 
     const [showPopup, setShowPopup] = React.useState(false)
 
-    const onShowClearPopup = () => {
-        setShowPopup(!showPopup);
+    const onToggleClearCartPopup = () => {
+        setShowPopup(prevState => !prevState);
     }
 
     const delItemFromCart = (id) => {
@@ -65,7 +68,7 @@ export default function CartPage() {
                 totalCount ?
                     <CartView
                         items={cartItemsList}
-                        onClickClearCart={onShowClearPopup}
+                        onToggleClearCartPopup={onToggleClearCartPopup}
                         onClickYes={handleClickedYes}
                         totalCount={totalCount}
                         totalPrice={totalPrice}
@@ -77,7 +80,6 @@ export default function CartPage() {
                         <p>Ваш кошик порожній :( </p>
                     </h3>
             }
-
         </Container>
     )
 }
@@ -85,7 +87,7 @@ export default function CartPage() {
 const CartView = (props) => {
     const { items,
         showPopup,
-        onClickClearCart,
+        onToggleClearCartPopup,
         onClickYes,
         totalCount,
         totalPrice
@@ -94,14 +96,23 @@ const CartView = (props) => {
     return (
         <React.Fragment>
 
-            <PopupWindow show={showPopup}>
-                <span>Ви дійсно бажаєте очистити кошик?</span>
-                <button className="btn btn-info" onClick={onClickYes}>Так</button>
-                <button className="btn btn-info" onClick={onClickClearCart}>Ні</button>
-            </PopupWindow>
+            <Modal animation={true} show={showPopup} onHide={onToggleClearCartPopup}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Очистити кошик</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Ви дійсно бажаєте очистити кошик?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={onToggleClearCartPopup}>
+                        No
+                    </Button>
+                    <Button variant="primary" onClick={onClickYes}>
+                        Yes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
             <div className="cart-top">
-                <div onClick={onClickClearCart} className="cart-top__clear-btn unselectable-text">
+                <div onClick={onToggleClearCartPopup} className="cart-top__clear-btn unselectable-text">
                     <img src={trashIcon} alt="trash-icon" />
                     Очистити кошик
                 </div>
@@ -118,7 +129,6 @@ const CartView = (props) => {
                 </div>
 
                 <FormBuy />
-                {/* <div className="cart-bottom__buy-btn unselectable-text">Замовити</div> */}
             </div>
         </React.Fragment>
     )

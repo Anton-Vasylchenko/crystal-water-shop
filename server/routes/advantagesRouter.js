@@ -3,11 +3,11 @@ const router = new Router();
 const advantagesController = require('../controllers/advantagesController');
 const checkRole = require('../middleware/checkRoleMiddleware');
 
-router.post('/', advantagesController.create)
+router.post('/', checkRole('ADMIN'), advantagesController.create)
 router.get('/', advantagesController.getAll)
 router.get('/:id', advantagesController.getById)
-router.patch('/:id', advantagesController.update)
-router.delete('/:id', advantagesController.delete)
+router.patch('/:id', checkRole('ADMIN'), advantagesController.update)
+router.delete('/:id', checkRole('ADMIN'), advantagesController.delete)
 
 // checkRole('ADMIN')
 

@@ -1,6 +1,10 @@
 const initialState = {
-    role: 'ADMIN',
+    role: 'USER',
     isAuth: false,
+    email: '',
+    name: '',
+    id: '',
+    phone: ''
 }
 
 const user = (state = initialState, action) => {
@@ -13,7 +17,12 @@ const user = (state = initialState, action) => {
         case 'SET_USER':
             return {
                 ...state,
-                role: action.payload,
+                ...action.payload
+            };
+        case 'SET_ROLE':
+            return {
+                ...state,
+                role: action.payload
             };
         default:
             return state;

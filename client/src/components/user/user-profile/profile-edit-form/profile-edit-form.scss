@@ -1,0 +1,19 @@
+.profile-edit {
+  &__error {
+    margin-right: 20px;
+  }
+}
+
+.profile-edit-form {
+  &__image {
+    width: 200px;
+    input {
+      margin-top: 10px;
+      width: 200px;
+    }
+  }
+  &__nav {
+    text-align: right;
+    margin-right: 12px;
+  }
+}

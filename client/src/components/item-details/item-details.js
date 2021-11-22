@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-import { Container, Spinner, PopularProducts } from '../';
+import Container from '../UI/container';
+import Spinner from '../UI/spinner';
+import PopularProducts from '../popular-products';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchItemDetails, addItemToCart } from '../../redux/actions';
 import { AdminProductsEdit } from '../admin/admin-products';
@@ -17,29 +19,17 @@ function ItemDetails({ itemId }) {
 
     useEffect(() => {
         dispatch(fetchItemDetails(itemId));
-    }, [dispatch, itemId])
+    }, [itemId])
 
     const handleAddItemToCart = () => {
         dispatch(addItemToCart(itemDetails));
     }
 
     return (
-        <ItemDetailsView
-            isLoaded={isLoaded}
-            handleAddItemToCart={handleAddItemToCart}
-            countOfAdded={countOfAdded}
-            itemDetails={itemDetails}
-            isAdmin={isAuth}
-        />
-    )
-}
-
-const ItemDetailsView = ({ isLoaded, handleAddItemToCart, countOfAdded, itemDetails, isAdmin }) => {
-    return (
         <React.Fragment>
             <Container title={itemDetails.name} backArrow>
 
-                {isAdmin && Object.keys(itemDetails).length
+                {isAuth && Object.keys(itemDetails).length
                     ? <AdminProductsEdit itemDetails={itemDetails} /> : ''}
 
                 {!isLoaded ? <Spinner /> :
@@ -70,8 +60,6 @@ const ItemDetailsView = ({ isLoaded, handleAddItemToCart, countOfAdded, itemDeta
                                 +Додати {countOfAdded && <span>{countOfAdded}</span>}
                             </button>
                         </div>
-
-
                     </div>
                 }
             </Container>
@@ -80,5 +68,6 @@ const ItemDetailsView = ({ isLoaded, handleAddItemToCart, countOfAdded, itemDeta
         </React.Fragment>
     )
 }
+
 
 export default ItemDetails

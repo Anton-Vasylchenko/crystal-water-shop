@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from '../';
+import Container from '../UI/container';
 
 function Error404() {
     return (

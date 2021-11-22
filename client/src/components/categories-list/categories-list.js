@@ -6,11 +6,12 @@ import { CreateCategories } from '../admin/admin-categories';
 import { EditCategoriesList } from '../admin/admin-categories';
 
 import './categories-list.scss';
+import { UserRoles } from '../../utils/consts';
 
 function CategoriesList() {
     const dispatch = useDispatch();
     const { activeCategory, categories } = useSelector(({ filters }) => filters);
-    const { isAuth } = useSelector(({ user }) => user);
+    const { isAuth, role } = useSelector(({ user }) => user);
 
     React.useEffect(() => {
         dispatch(fetchCategories());
@@ -31,10 +32,12 @@ function CategoriesList() {
         )
     })
 
+    const isAdmin = role === UserRoles.ADMIN
+
     return (
         <div className="shop-categories">
             <ul>
-                {isAuth ? <li><EditCategoriesList /></li> : ''}
+                {isAuth && isAdmin ? <li><EditCategoriesList /></li> : ''}
 
                 <li className={activeCategory === null ? 'shop-categories__active' : ''}
                     onClick={() => onSelectCategory(null)}>
@@ -42,7 +45,7 @@ function CategoriesList() {
                 </li>
                 {categoriesList}
 
-                {isAuth ? <li><CreateCategories /></li> : ''}
+                {isAuth && isAdmin ? <li><CreateCategories /></li> : ''}
 
             </ul>
         </div>
