@@ -6,6 +6,7 @@ import { login, registration } from '../../services/userAPI';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Routes } from '../../utils/consts';
 import { Alert } from 'react-bootstrap';
+import RestorePassword from '../../components/restore-password';
 
 import './auth-page.scss';
 
@@ -47,10 +48,8 @@ function LoginPage() {
             let data;
             if (isLogin) {
                 data = await login(email, password);
-                console.log(data);
             } else {
                 data = await registration(email, password, userName);
-
             }
             dispatch(setIsAuth(true))
             dispatch(setUser(data))
@@ -80,6 +79,10 @@ function LoginPage() {
         setUserName(e.target.value)
     }
 
+    const onRestorePassword = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <Container>
             <form className="login-form" onSubmit={auth}>
@@ -88,7 +91,7 @@ function LoginPage() {
                     {error}
                 </Alert>}
 
-                <h2> {isLogin ? 'Login' : 'Registration'} </h2>
+                <h2> {isLogin ? 'Увійти' : 'Реєстрація'} </h2>
 
                 <div className="form-outline mb-4">
                     <input
@@ -109,7 +112,7 @@ function LoginPage() {
                         value={userName}
                         onChange={onChangeNameHandler}
                     />
-                    <label className="form-label" htmlFor="userName">Name</label>
+                    <label className="form-label" htmlFor="userName">Прізвище та ім'я</label>
                 </div>}
 
                 <div className="form-outline mb-4">
@@ -120,11 +123,13 @@ function LoginPage() {
                         value={password}
                         onChange={onChangePasswordHandler}
                     />
-                    <label className="form-label" htmlFor="password" >Password</label>
+                    <label className="form-label" htmlFor="password">Пароль</label>
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block">{isLogin ? 'Login' : 'Registration'}</button>
+                <button type="submit" className="btn btn-primary btn-block">{isLogin ? 'Увійти' : 'Зареєструватися'}</button>
             </form>
+
+            <RestorePassword />
         </Container >
     )
 }

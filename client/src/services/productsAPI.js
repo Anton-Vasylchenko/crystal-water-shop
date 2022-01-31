@@ -66,3 +66,10 @@ export const updateAdvantages = async (id, item) => {
     const { data } = await $authHost.patch('api/advantages/' + id, item)
     return data
 }
+
+// orders
+
+export const deleteOrders = async (id) => {
+    const { data } = await $authHost.delete('api/order/' + id)
+    return data
+}

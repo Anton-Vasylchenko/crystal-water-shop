@@ -1,12 +1,12 @@
 import React from 'react'
-import ShopItem from '../shop-item';
+import ListItem from './list-item';
 import Spinner from '../UI/spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchGoods, addItemToCart, setPage } from '../../redux/actions';
 import { AdminProductsAdd } from '../admin/admin-products';
-import PagePagination from '../UI/page-pagination';
+import useIsAdmin from '../../hooks/useIsAdmin';
+import useIsModerator from '../../hooks/useIsModerator';
 import Pagination from '../UI/pagination';
-import { UserRoles } from '../../utils/consts';
 
 import './shop-items-list.scss';
 
@@ -16,7 +16,9 @@ function ShopItemsList() {
     const cartItems = useSelector(({ cart }) => cart.items);
     const { items, isLoaded, totalCount, limit, page } = useSelector(({ goods }) => goods);
     const { activeCategory, sortBy, sortOrder } = useSelector(({ filters }) => filters);
-    const { isAuth, role } = useSelector(({ user }) => user);
+
+    const isAdmin = useIsAdmin();
+    const isModerator = useIsModerator();
 
     React.useEffect(() => {
         dispatch(fetchGoods(sortBy, activeCategory, sortOrder, page, limit));
@@ -30,17 +32,12 @@ function ShopItemsList() {
         dispatch(setPage(pageNumber));
     }
 
-    const isAdmin = isAuth && role === UserRoles.ADMIN;
-    const isModerator = isAuth && role === UserRoles.MODERATOR;
-
     const loadingGoods = !isLoaded ? <Spinner /> : items.map((item) => {
         const countOfAdded = cartItems[item.id] && cartItems[item.id].length;
-        return <ShopItem
+        return <ListItem
             onClickBuyBtn={handleAddItemToCart}
             key={item.id}
             countOfAdded={countOfAdded}
-            isAdmin={isAdmin}
-            isModerator={isModerator}
             {...item}
         />
     })

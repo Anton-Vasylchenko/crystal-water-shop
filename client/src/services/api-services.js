@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 class ApiServices {
-  _baseUrl = `${process.env.REACT_APP_API_URL}api/`;
+  _baseUrl = process.env.NODE_ENV === 'production' ? 'api/' : `${process.env.REACT_APP_API_URL}api/`;
 
   /**
    * 'http://localhost:3004/';
@@ -32,7 +32,6 @@ class ApiServices {
   }
 
   getOrders = async (page, limit, userId) => {
-    console.log(userId)
     const { data } = await axios.get(`${this._baseUrl}order`, {
       params: {
         userId,
@@ -50,9 +49,6 @@ class ApiServices {
         orderId: orderId
       }
     });
-
-    console.log(data);
-
     return data;
   }
 

@@ -37,7 +37,7 @@ const setOrdersItems = (items) => ({
 });
 
 const setOrdersPage = (pageNumber) => ({
-    type: 'SET_PAGE',
+    type: 'SET_ORDERS_PAGE',
     payload: pageNumber
 });
 

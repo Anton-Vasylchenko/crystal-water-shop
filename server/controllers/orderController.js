@@ -3,13 +3,79 @@ const path = require('path');
 const ApiError = require('../error/ApiError');
 const productController = require('./productController');
 const { OrdersItems, OrdersList } = require('../models/models');
-const { uuid } = require('uuidv4');
+
+function emailTemplate(obj) {
+    let order = `<table style="border: 1px solid black">    
+      <tr style="border: 1px solid black">
+        <th>Назва</th>
+        <th>Кількість</th>
+        <th>Ціна за шт.</th>
+      </tr>`
+    for (let key in obj) {
+        order += `
+            <tr>
+                <td style="border: 1px solid black">${obj[key].name}</td>
+                <td style="border: 1px solid black">${obj[key].count} шт.</td>
+                <td style="border: 1px solid black">${obj[key].price} грн.</td>
+            </tr>`
+    }
+    order += `</table>`;
+    return order;
+}
+
+function sendOrderEmail(
+    userName,
+    userEmail,
+    userPhone,
+    orderId,
+    totalAmount,
+    ordersTable,
+    recipientEmail
+) {
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_FOR_MAILING,
+            pass: process.env.PASS_FOR_EMAIL
+        }
+    });
+
+    let mailOptions = {
+        from: 'crystal.water.website@gmail.com',
+        to: recipientEmail,
+        subject: 'Замовлення на сайті water.lviv.ua',
+        html: `
+            <b>Номер замовлення: </b> ${orderId};<br>
+            <b>Ім'я:</b> ${userName};<br>
+            <b>Телефон:</b> ${userPhone};<br>
+            <b>Email:</b> ${userEmail};<br>
+            <br>
+            ${ordersTable}<br>
+            <b>Загальна сума:</b> ${totalAmount} грн.                
+        `
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error)
+            return error;
+
+        } else {
+            return 'Email sent: ' + info.response
+        }
+    });
+}
 
 class SendController {
     async saveOrder(req, res, next) {
 
         const itemsOrder = {};
-        const orderId = uuid();
+        const goodsIds = [];
+        let totalAmount = 0;
+        let userName;
+        let userEmail;
+        let userPhone;
+        const orderId = Math.trunc(Date.now() + Math.random());
         let userId;
 
         for (let key in req.body) {
@@ -28,8 +94,6 @@ class SendController {
         }
 
         try {
-            let totalAmount = 0;
-
             for (let key in itemsOrder) {
                 const orderItems = await OrdersItems.create({
                     userId: itemsOrder[key].userId,
@@ -42,76 +106,56 @@ class SendController {
                 });
 
                 totalAmount += itemsOrder[key].price * itemsOrder[key].count
+
+                userName = itemsOrder[key].userName
+                userPhone = itemsOrder[key].userPhone
+                userEmail = itemsOrder[key].userEmail
+
+                goodsIds.push(key)
             }
 
             const order = await OrdersList.create({
                 userId: userId,
                 orderNumber: orderId,
                 amount: totalAmount,
+                userName,
+                userPhone,
+                userEmail
             });
 
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
 
-        // тут треба замутити відправку листа!!!!!
+        for (let i = 0; i < goodsIds.length; i++) {
+            productController.increaseRating(goodsIds[i]);
+        }
 
-        // все, що нижче - робоче
+        const ordersTable = emailTemplate(itemsOrder);
 
-        // const { name,
-        //     phone,
-        //     totalPrice,
-        //     emailMsg,
-        //     itemsCount,
-        //     idArray,
-        //     orderNumber,
-        //     userId
-        // } = req.body
+        sendOrderEmail(
+            userName,
+            userEmail,
+            userPhone,
+            orderId,
+            totalAmount,
+            ordersTable,
+            'stdavinchi@gmail.com'
+        );
 
-        // const goodsId = idArray.split(',');
-
-        // let transporter = nodemailer.createTransport({
-        //     service: 'gmail',
-        //     auth: {
-        //         user: process.env.EMAIL_FOR_MAILING,
-        //         pass: process.env.PASS_FOR_EMAIL
-        //     }
-        // });
-
-        // let mailOptions = {
-        //     from: 'crystal.water.website@gmail.com',
-        //     to: 'stdavinchi@gmail.com',
-        //     subject: 'Замовлення на сайті',
-        //     html: `
-        //         <b>Ім'я:</b> ${name};<br>
-        //         <b>Телефон:</b> ${phone};<br><br>
-        //         ${emailMsg}<br>
-        //         <b>Загальна сума:</b> ${totalPrice} грн.                
-        //     `
-        // };
-
-        // transporter.sendMail(mailOptions, function (error, info) {
-        //     if (error) {
-        //         return error;
-        //     } else {
-        //         return 'Email sent: ' + info.response
-        //     }
-        // });        
-
-        // for (let i = 0; i < goodsId.length; i++) {
-        //     productController.increaseRating(goodsId[i]);
-        // }
-
-
-
-
+        sendOrderEmail(
+            userName,
+            userEmail,
+            userPhone,
+            orderId,
+            totalAmount,
+            ordersTable,
+            userEmail
+        );
     }
 
     async getAll(req, res) {
         let { userId, limit, page } = req.query;
-
-        console.log('fsdfsdfsdf sdf dsfds fsdf sdf dsf dsf dsfsdfdsf ');
-        console.log(userId)
 
         page = page || 1;
         limit = limit || 12;
@@ -146,6 +190,22 @@ class SendController {
         return res.json(orderItems);
     }
 
+    async delete(req, res, next) {
+        const id = req.params.id;
+
+        const order = await OrdersList.findOne({
+            where: { id }
+        });
+
+        try {
+            const delOrder = await OrdersList.destroy({ where: { id } });
+            const delOrderItems = await OrdersItems.destroy({ where: { orderNumber: order.orderNumber } });
+
+            return res.json(delOrder);
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
 }
 
 module.exports = new SendController()

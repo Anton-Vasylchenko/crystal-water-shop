@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Header from '../components/Layout/header';
 import Footer from '../components/Layout/footer';
-import ItemDetails from '../components/item-details';
+import ShopItemDetails from '../components/shop-item-details';
 import Error404 from '../components/error-404';
 import Spinner from '../components/UI/spinner';
 import * as Pages from '../pages';
@@ -13,6 +13,7 @@ import UsersList from '../components/admin/users-list';
 import { Routes } from '../utils/consts';
 import OrdersList from '../components/orders-list';
 import { useSelector } from 'react-redux';
+import ResetPasswordPage from '../pages/reset-password-page/reset-password-page';
 
 import { check } from '../services/userAPI';
 
@@ -43,6 +44,7 @@ function App() {
     <div>
       <Header />
       <Switch>
+
         <Route exact path={Routes.HOME_ROUTE} component={Pages.HomePage} />
         <Route exact path={Routes.ABOUT_ROUTE} component={Pages.AboutUsPage} />
         <Route exact path={Routes.CONTACTS_ROUTE} component={Pages.ContactsPage} />
@@ -51,7 +53,7 @@ function App() {
         <Route path={Routes.SHOP_ROUTE} exact component={Pages.ShopPage} />
 
         <Route path={Routes.SHOP_ITEM_ROUTE} render={({ match }) => {
-          return <ItemDetails itemId={match.params.id} exact />
+          return <ShopItemDetails itemId={match.params.id} exact />
         }} />
 
         <Route path={Routes.LOGIN_ROUTE} component={Pages.AuthPage} />
@@ -64,6 +66,10 @@ function App() {
             <Route path={Routes.USER_PROFILE} component={UserProfile} />
           </>
         }
+
+        <Route path={Routes.USER_RESET_PASSWORD} render={({ match }) => {
+          return <ResetPasswordPage userId={match.params.id} token={match.params.token} />
+        }} />
 
         <Route path="*" component={Error404} />
       </Switch>

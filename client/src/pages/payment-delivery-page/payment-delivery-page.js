@@ -7,15 +7,16 @@ import parse from 'html-react-parser';
 
 import './payment-delivery-page.scss';
 import { ComponentName } from '../../utils/consts';
+import useIsAdmin from '../../hooks/useIsAdmin';
 
 export default function ContactsPage() {
-    const { isAuth, role } = useSelector(({ user }) => user);
+    const isAdmin = useIsAdmin();
 
     const { data, isLoading, update } = usePage(ComponentName.PAYMENT);
 
     return (
         <Container title={data.title} isLoaded={isLoading}>
-            {isAuth && role === 'ADMIN' ? <AdminComponentsEdit data={data} updateData={update} /> : ''}
+            {isAdmin && <AdminComponentsEdit data={data} updateData={update} />}
 
             {data ? parse(`${data.text}`) : ''}
 

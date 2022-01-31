@@ -13,4 +13,8 @@ const setRole = (role) => ({
     payload: role
 });
 
-export { setIsAuth, setUser, setRole };
+const setUserLogout = () => ({
+    type: 'SET_USER_LOGOUT'
+});
+
+export { setIsAuth, setUser, setRole, setUserLogout };

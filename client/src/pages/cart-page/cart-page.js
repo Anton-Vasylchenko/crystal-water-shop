@@ -2,15 +2,14 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import Container from '../../components/UI/container';
 import CartItem from '../../components/cart-item';
-import FormBuy from '../../components/form-buy';
-import { Modal, Button } from 'react-bootstrap';
+import OrderForm from '../../components/order-form';
+import ModalBox from '../../components/UI/modal-box';
+import trashIcon from '../../assets/images/trash-icon.png';
+import emptyCartImg from '../../assets/images/cart-is-empty.png';
 
 import { clearCart, removeCartItem, minusCartItem, addItemToCart } from "../../redux/actions"
 
 import './cart-page.scss';
-
-import trashIcon from '../../assets/images/trash-icon.png';
-import emptyCartImg from '../../assets/images/cart-is-empty.png';
 
 export default function CartPage() {
     const dispatch = useDispatch();
@@ -64,22 +63,20 @@ export default function CartPage() {
 
     return (
         <Container title="Кошик" backArrow>
-            {
-                totalCount ?
-                    <CartView
-                        items={cartItemsList}
-                        onToggleClearCartPopup={onToggleClearCartPopup}
-                        onClickYes={handleClickedYes}
-                        totalCount={totalCount}
-                        totalPrice={totalPrice}
-                        showPopup={showPopup}
-                    />
-                    :
-                    <h3 className="text-center text-secondary jumbotron jumbotron-fluid">
-                        <img className="empty-cart-img" src={emptyCartImg} alt="cart is empty" />
-                        <p>Ваш кошик порожній :( </p>
-                    </h3>
-            }
+            {totalCount ?
+                <CartView
+                    items={cartItemsList}
+                    onToggleClearCartPopup={onToggleClearCartPopup}
+                    onClickYes={handleClickedYes}
+                    totalCount={totalCount}
+                    totalPrice={totalPrice}
+                    showPopup={showPopup}
+                />
+                :
+                <h3 className="text-center text-secondary jumbotron jumbotron-fluid">
+                    <img className="empty-cart-img" src={emptyCartImg} alt="cart is empty" />
+                    <p>Ваш кошик порожній :( </p>
+                </h3>}
         </Container>
     )
 }
@@ -95,21 +92,13 @@ const CartView = (props) => {
 
     return (
         <React.Fragment>
-
-            <Modal animation={true} show={showPopup} onHide={onToggleClearCartPopup}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Очистити кошик</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Ви дійсно бажаєте очистити кошик?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={onToggleClearCartPopup}>
-                        No
-                    </Button>
-                    <Button variant="primary" onClick={onClickYes}>
-                        Yes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <ModalBox
+                handleNo={onToggleClearCartPopup}
+                handleYes={onClickYes}
+                show={showPopup}
+                title={'Кошик'}
+                body={'Ви дійсно бажаєте очистити кошик?'}
+            />
 
             <div className="cart-top">
                 <div onClick={onToggleClearCartPopup} className="cart-top__clear-btn unselectable-text">
@@ -118,9 +107,7 @@ const CartView = (props) => {
                 </div>
             </div>
 
-            <ul>
-                {items}
-            </ul>
+            <ul>{items}</ul>
 
             <div className="cart-bottom">
                 <div className="cart-bottom__info">
@@ -128,7 +115,7 @@ const CartView = (props) => {
                     <div className="cart-bottom__total-price">Сума замовлення: <span>{totalPrice} ₴</span></div>
                 </div>
 
-                <FormBuy />
+                <OrderForm />
             </div>
         </React.Fragment>
     )

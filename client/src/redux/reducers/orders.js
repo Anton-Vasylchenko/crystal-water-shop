@@ -1,6 +1,6 @@
 const initialState = {
     items: [],
-    page: 1,
+    pageOrders: 1,
     totalCount: 0,
     limit: 10,
     isLoaded: false,
@@ -58,7 +58,10 @@ const orders = (state = initialState, action) => {
             for (let key in itemsOrder) {
                 const order = {};
                 order.orderNumber = itemsOrder[key][0].orderNumber;
-
+                order.userName = itemsOrder[key][0].userName;
+                order.userEmail = itemsOrder[key][0].userEmail;
+                order.userPhone = itemsOrder[key][0].userPhone;
+                order.id = itemsOrder[key][0].id;
                 order.totalAmount = itemsOrder[key][0].amount;
                 order.date = itemsOrder[key][0].createdAt;
                 order.goods = [];
@@ -92,7 +95,7 @@ const orders = (state = initialState, action) => {
 
             return {
                 ...state,
-                items: [...newStateItems],
+                items: newStateItems ? [...newStateItems] : [],
                 isLoaded: true
             };
 
@@ -106,10 +109,10 @@ const orders = (state = initialState, action) => {
                 ...state,
                 isLoadedOrderItems: action.payload
             };
-        case 'SET_PAGE':
+        case 'SET_ORDERS_PAGE':
             return {
                 ...state,
-                page: action.payload,
+                pageOrders: action.payload,
             };
         case 'SET_LIMIT':
             return {

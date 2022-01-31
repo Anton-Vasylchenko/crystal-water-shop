@@ -1,13 +1,10 @@
-.users-list {
-  display: flex;
-  background: grey;
-  margin: 10px;
-  padding: 20px;
-  color: white;
-  justify-content: space-between;
-}
-
 .user-list-item {
   min-width: 100px;
   outline: 1px solid red;
+}
+
+@media only screen and (max-width: 992px) {
+  .users-list {
+    font-size: 14px;
+  }
 }

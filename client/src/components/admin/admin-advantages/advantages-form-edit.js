@@ -124,7 +124,7 @@ function AdvantagesFormEdit({ show, handleNo, handleSubmit, itemDetails }) {
                                 />
                             </Form.Group>
 
-                            <div className="item-details__image mt-2 bg-secondary">
+                            <div className="shop-item-details__image mt-2 bg-secondary">
                                 <img src={imgUrl} alt="item pictures" />
                             </div>
 

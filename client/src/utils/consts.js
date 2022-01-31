@@ -10,7 +10,8 @@ export const Routes = {
     SHOP_ITEM_ROUTE: '/shop/:id',
     USERS_LIST: '/users-list',
     ORDERS_LIST: '/orders-list',
-    USER_PROFILE: '/user-profile'
+    USER_PROFILE: '/user-profile',
+    USER_RESET_PASSWORD: '/reset-password/:id/:token',
 }
 
 export const UserRoles = {
@@ -29,4 +30,8 @@ export const ComponentName = {
 
 export const UserDefault = {
     IMAGE: 'default_avatar.jpg'
+}
+
+export const ProductDefault = {
+    IMAGE: 'deleted.png'
 }

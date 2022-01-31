@@ -50,7 +50,7 @@ const User = sequelize.define('user', {
     password: { type: DataTypes.STRING },
     phone: { type: DataTypes.STRING, defaultValue: null },
     name: { type: DataTypes.STRING },
-    image: { type: DataTypes.STRING, defaultValue: null },
+    image: { type: DataTypes.STRING, defaultValue: "default_avatar.jpg" },
     role: { type: DataTypes.STRING, defaultValue: "USER" },
 });
 
@@ -98,9 +98,18 @@ const OrdersList = sequelize.define('orders_list', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     userId: { type: DataTypes.STRING, unique: false, allowNull: false },
     orderNumber: { type: DataTypes.STRING, unique: false, allowNull: false },
-    amount: { type: DataTypes.STRING, unique: false, allowNull: false }
+    amount: { type: DataTypes.STRING, unique: false, allowNull: false },
+    userName: { type: DataTypes.STRING, unique: false, allowNull: true },
+    userPhone: { type: DataTypes.STRING, unique: false, allowNull: true },
+    userEmail: { type: DataTypes.STRING, unique: false, allowNull: true }
+});
+
+const ProductsRating = sequelize.define('products_rating', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    userId: { type: DataTypes.STRING, unique: false, allowNull: false },
+    rating: { type: DataTypes.STRING, unique: false, allowNull: false },
 });
 
 module.exports = {
-    User, Advantages, Product, Component, Category, OrdersItems, OrdersList
+    User, Advantages, Product, Component, Category, OrdersItems, OrdersList, ProductsRating
 }

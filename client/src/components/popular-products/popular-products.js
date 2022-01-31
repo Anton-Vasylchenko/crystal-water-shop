@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '../UI/container';
 import Spinner from '../UI/spinner';
-import ShopItem from '../shop-item';
+import ListItem from '../shop-items-list/list-item';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPopularGoods, addItemToCart } from '../../redux/actions';
 
@@ -23,7 +23,7 @@ const PopularProducts = ({ title, catId }) => {
 
     const items = popularItems && popularItems.map(({ id, ...item }) => {
         const countOfAdded = cartItems[id] && cartItems[id].length;
-        return <ShopItem
+        return <ListItem
             key={id}
             onClickBuyBtn={handleAddItemToCart}
             countOfAdded={countOfAdded}

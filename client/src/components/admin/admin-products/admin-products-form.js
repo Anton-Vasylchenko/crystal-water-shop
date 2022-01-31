@@ -178,7 +178,7 @@ function AdminProductsForm({ show, handleNo, handleSubmit }) {
 
                             <Form.Group as={Col} controlId="formGridImage" className="mt-4">
 
-                                {selectedImage.length !== 0 && <div className="item-details__image mt-2">
+                                {selectedImage.length !== 0 && <div className="shop-item-details__image mt-2">
                                     <img src={imgUrl} alt="item pictures" />
                                 </div>}
 

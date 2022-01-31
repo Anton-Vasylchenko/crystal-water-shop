@@ -3,8 +3,7 @@ import { PencilSquare } from 'react-bootstrap-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Button, Col, Form, Dropdown, Alert, } from 'react-bootstrap';
 import TextEditor from '../text-editor';
-import { fetchItemDetails } from '../../../redux/actions';
-import { fetchCategories } from '../../../redux/actions';
+import { fetchItemDetails, fetchPopularGoods, fetchCategories } from '../../../redux/actions';
 import { updateProduct } from '../../../services/productsAPI';
 
 import './admin-products.scss';
@@ -41,7 +40,7 @@ function AdminProductsEdit({ itemDetails }) {
 
     React.useEffect(() => {
         dispatch(fetchCategories());
-    }, [dispatch])
+    }, [])
 
     const handleSubmit = (product) => {
         try {
@@ -53,6 +52,7 @@ function AdminProductsEdit({ itemDetails }) {
             formData.append('categoryId', product.categoryId);
             updateProduct(formData, itemDetails.id).then(data => {
                 dispatch(fetchItemDetails(itemDetails.id));
+                dispatch(fetchPopularGoods(itemDetails.categoryId))
             })
         } catch (e) {
             alert(e.response.data.message)
@@ -201,7 +201,7 @@ function AdminProductsEdit({ itemDetails }) {
                                 />
                             </Form.Group>
 
-                            <div className="item-details__image mt-2">
+                            <div className="shop-item-details__image mt-2">
                                 <img src={imgUrl} alt="item pictures" />
                             </div>
 

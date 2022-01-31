@@ -1,19 +1,27 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { setIsAuth } from '../../../redux/actions';
+import { setIsAuth, setUserLogout } from '../../../redux/actions';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import './user-panel.scss';
 import { Routes, UserDefault, UserRoles } from '../../../utils/consts';
+import { useHistory } from "react-router-dom";
 
 function UserPanel() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const { name, image, id, role, isAuth } = useSelector(({ user }) => user);
 
     const logOut = () => {
-        dispatch(setIsAuth(false));
+        dispatch(setUserLogout());
+        const pathname = history.location.pathname;
+
+        if (pathname === Routes.ORDERS_LIST || pathname === Routes.USER_PROFILE) {
+            history.push('/')
+        }
+
         localStorage.removeItem('token');
     }
 

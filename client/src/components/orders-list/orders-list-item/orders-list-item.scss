@@ -1,4 +1,6 @@
 .orders-item-list {
+  flex-grow: 2;
+  width: 100%;
   border: 1px solid rgb(189, 189, 189);
   border-radius: 5px;
   margin: 10px 0;
@@ -33,5 +35,49 @@
   }
   span {
     color: grey;
+  }
+}
+
+.user-order-info {
+  display: flex;
+  justify-content: space-around;
+  background: rgb(235, 235, 235);
+  border-radius: 20px;
+  margin: 5px;
+  color: black;
+  padding: 5px;
+  span {
+    color: rgb(31, 148, 56);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .order-item {
+    display: block;
+    text-align: center;
+  }
+
+  .order-item__section {
+    width: 100%;
+    margin: 10px 0;
+    display: block;
+  }
+
+  .drop-arrow {
+    background: rgb(236, 236, 236);
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .order-item {
+    font-size: 14px;
+  }
+
+  .user-order-info {
+    display: block;
+    text-align: center;
   }
 }

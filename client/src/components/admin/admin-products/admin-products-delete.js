@@ -1,5 +1,5 @@
 import React from 'react';
-import PopupDelete from '../popup-delete/popup-delete';
+import ModalBox from '../../UI/modal-box';
 import { deleteProduct } from '../../../services/productsAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGoods } from '../../../redux/actions';
@@ -26,11 +26,12 @@ function AdminProductDelete({ id, name }) {
 
     return (
         <>
-            <PopupDelete
+            <ModalBox
                 show={show}
                 handleNo={handleNo}
                 handleYes={handleYes}
-                name={name}
+                title={`Видалення: "${name}"`}
+                body={`Ви дійсно бажаєте видалити товар "${name}"?`}
             />
 
             <div className="product-del" onClick={toggleShow}>x</div>

@@ -1,9 +1,9 @@
+import React from 'react';
+
 import { PencilSquare } from 'react-bootstrap-icons';
 import { Modal, Form, Button, Alert, Col } from 'react-bootstrap';
 import TextEditor from '../text-editor';
 import { updateComponent } from '../../../services/productsAPI';
-
-import React from 'react';
 
 import './admin-components.scss';
 
@@ -120,7 +120,7 @@ function AdminComponentsEdit({ data, updateData }) {
                                     />
                                 </Form.Group>
 
-                                <div className="item-details__image mt-2 admin-image-edit">
+                                <div className="shop-item-details__image mt-2 admin-image-edit">
                                     <img src={`${process.env.REACT_APP_API_URL}components/${data.img}`} alt="item pictures" />
                                 </div>
 

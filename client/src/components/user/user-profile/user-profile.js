@@ -8,8 +8,9 @@ import ProfileEditForm from './profile-edit-form/profile-edit-form';
 
 import './user-profile.scss';
 import { UserDefault } from '../../../utils/consts';
+import ChangePasswordForm from './change-password-form/change-password-form';
 
-function UserProfile(props) {
+function UserProfile() {
     const dispatch = useDispatch();
 
     const { id, image, name, email, phone } = useSelector(({ user }) => user);
@@ -63,8 +64,12 @@ function UserProfile(props) {
                     </div>
                     <div className="user-profile__item">
                         <span>Номер телефону: </span>
-                        {!phone ? '---' : phone}
+                        {phone ? phone : ''}
                     </div>
+                    <div className="user-profile__item">
+                        <ChangePasswordForm />
+                    </div>
+
                 </div>
             </div>
                 :

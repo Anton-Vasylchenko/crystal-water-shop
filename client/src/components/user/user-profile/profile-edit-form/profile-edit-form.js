@@ -109,7 +109,7 @@ function ProfileEditForm(props) {
                         <Form.Control
                             type="number"
                             placeholder="Введіть ваш мобільний номер"
-                            value={enteredPhone}
+                            value={enteredPhone ? enteredPhone : ''}
                             onChange={onChangePhoneHandler}
                         />
                     </div>

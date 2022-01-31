@@ -24,6 +24,15 @@ const user = (state = initialState, action) => {
                 ...state,
                 role: action.payload
             };
+        case 'SET_USER_LOGOUT':
+            return {
+                role: 'USER',
+                isAuth: false,
+                email: '',
+                name: '',
+                id: '',
+                phone: ''
+            };
         default:
             return state;
     }

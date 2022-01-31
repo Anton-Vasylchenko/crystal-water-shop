@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getComponentInfoByName } from '../../../services/productsAPI';
-import { ComponentName, UserRoles } from '../../../utils/consts';
+import { ComponentName } from '../../../utils/consts';
+import useIsAdmin from '../../../hooks/useIsAdmin';
 import FooterItem from './footer-item';
 
 import MainLogo from '../../main-logo';
@@ -9,7 +10,7 @@ import MainLogo from '../../main-logo';
 import './footer.scss';
 
 function Footer() {
-    const { isAuth, role } = useSelector(({ user }) => user);
+    const isAdmin = useIsAdmin();
 
     const [footerInfo, setFooterInfo] = React.useState({});
 
@@ -22,8 +23,6 @@ function Footer() {
             setFooterInfo(data)
         })
     }
-
-    const isAdmin = role === UserRoles.ADMIN && isAuth;;
 
     const content = footerInfo.length > 0 && footerInfo.map(item => {
         return <FooterItem

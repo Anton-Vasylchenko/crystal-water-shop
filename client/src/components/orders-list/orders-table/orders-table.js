@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import OrderTableItem from './order-table-item';
 
 import './orders-table.scss';
 
 function OrdersTable(props) {
-
     return (
-        <Table striped bordered hover>
+        <Table responsive>
             <thead>
                 <tr>
                     <th>#</th>
@@ -17,23 +16,9 @@ function OrdersTable(props) {
                 </tr>
             </thead>
             <tbody>
-                {props.items.map(item => (
-                    <tr>
-                        <td className="order-table-img">
-                            <img src={`${process.env.REACT_APP_API_URL}products/${item.img}`} alt="poster" />
-                        </td>
-                        <td>
-                            <Link to={`/shop/${item.goodsId}`}>{item.name}</Link>
-                        </td>
-                        <td>{item.count}</td>
-                        <td>{item.price * item.count} ₴</td>
-                    </tr>
-                ))}
-
+                {props.items.map(item => <OrderTableItem item={item} />)}
             </tbody>
         </Table>
-
-
     )
 }
 

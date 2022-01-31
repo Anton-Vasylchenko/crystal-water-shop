@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 
 import './cart-item.scss';
+import ModalBox from '../UI/modal-box';
 
 const CartItem = (props) => {
     const { item, count, totalPrice, onDeleteItem, onPlus, onMinus } = props;
@@ -10,7 +11,7 @@ const CartItem = (props) => {
 
     const [showPopup, setShowPopup] = React.useState(false);
 
-    const handleRemoveClick = () => {
+    const onClosePopupHandler = () => {
         setShowPopup(!showPopup);
     }
 
@@ -22,7 +23,7 @@ const CartItem = (props) => {
         onMinus(id)
     }
 
-    const handleClickedYes = () => {
+    const onClickYesPopupHandler = () => {
         onDeleteItem(id)
         setShowPopup(!showPopup);
     }
@@ -47,25 +48,18 @@ const CartItem = (props) => {
                     </div>
                     <div className="cart-item__price">{totalPrice} ₴</div>
                     <div className="cart-item__del">
-                        <div className="cart-item__btn btn_del unselectable-text" onClick={handleRemoveClick}>x</div>
+                        <div className="cart-item__btn btn_del unselectable-text" onClick={onClosePopupHandler}>x</div>
                     </div>
                 </div>
             </div>
 
-            <Modal animation={true} show={showPopup} onHide={handleRemoveClick}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Видалення товару</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Ви дійсно бажаєте видалити <b>"{name}"?</b></Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleRemoveClick}>
-                        Ні
-                    </Button>
-                    <Button variant="primary" onClick={handleClickedYes}>
-                        Так
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <ModalBox
+                show={showPopup}
+                handleNo={onClosePopupHandler}
+                handleYes={onClickYesPopupHandler}
+                title={`Видалення: "${name}"`}
+                body={`Ви дійсно бажаєте видалити з кошика "${name}"?`}
+            />
         </li>
     )
 }

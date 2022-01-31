@@ -3,7 +3,7 @@ import { PencilSquare } from 'react-bootstrap-icons';
 import { TrashFill } from 'react-bootstrap-icons';
 import { CheckLg } from 'react-bootstrap-icons';
 import { Button, Form } from 'react-bootstrap';
-import PopupDelete from '../popup-delete/popup-delete';
+import ModalBox from '../../UI/modal-box';
 
 import './admin-categories.scss';
 
@@ -42,12 +42,12 @@ function EditCategoriesListItem({ name, id, index, handleDelete, handleUpdate })
 
     return (
         <>
-            <PopupDelete
+            <ModalBox
                 show={stateDeleteModal}
                 handleNo={onCancelDelete}
                 handleYes={onDelete}
-                name={name}
-                z-index={100}
+                title={'Видалення'}
+                body={`Ви дійсно бажаєте видалити категорію "${name}"?`}
             />
 
             <li className="list-group-item text-center" key={`${id}`}>

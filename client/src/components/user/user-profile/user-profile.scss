@@ -37,3 +37,19 @@
     }
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .user-profile {
+    display: block;
+    &__image {
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+  }
+
+  .user-info {
+    margin: 0;
+  }
+}

@@ -25,31 +25,45 @@ function UsersList() {
         })
     }
 
+    const deleteUserHandler = (id) => {
+        const newUsers = users.filter(user => user.id !== id);
+
+        if (newUsers.length === 0 && page > 1) {
+            setPage(prevState => prevState - 1)
+        }
+        setUsers([...newUsers]);
+    }
+
     return (
         <Container title={'Список зареєстрованих користувачів'}>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.length !== 0 &&
-                        users.map((user, index) => (
-                            <UserItem
-                                key={user.id}
-                                index={index}
-                                pageLimit={limit}
-                                page={page}
-                                {...user}
-                            />
-                        ))}
-                </tbody>
-            </Table>
+            <div className="users-list">
+                <Table responsive>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.length !== 0 &&
+                            users.map((user, index) => (
+                                <UserItem
+                                    onDeleteUser={deleteUserHandler}
+                                    key={user.id}
+                                    index={index}
+                                    pageLimit={limit}
+                                    page={page}
+                                    {...user}
+                                />
+                            ))}
+                    </tbody>
+                </Table>
+            </div>
 
             <Pagination
                 currentPage={page}
