@@ -71,13 +71,13 @@ function OrderForm() {
 
         let formIsValid = !Object.values(enteredDataIsValid).includes(false);
 
+        if (!formIsValid) {
+            return;
+        }
+
         sendOrderToEmail().then(data => {
             if (data === false) {
                 setUserExists(true);
-                return;
-            }
-
-            if (!formIsValid) {
                 return;
             }
 

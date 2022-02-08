@@ -6,6 +6,7 @@ import { login, registration } from '../../services/userAPI';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Routes } from '../../utils/consts';
 import { Alert } from 'react-bootstrap';
+import { isFiveChars } from '../../helpers/isValidInput';
 import RestorePassword from '../../components/restore-password';
 
 import './auth-page.scss';
@@ -36,6 +37,11 @@ function LoginPage() {
 
         if (!isLogin && userName.trim().length === 0) {
             setError('Name is not correct');
+            return;
+        }
+
+        if (!isLogin && !isFiveChars(password)) {
+            setError('Пароль не повинен бути коротшим 5 символів');
             return;
         }
 

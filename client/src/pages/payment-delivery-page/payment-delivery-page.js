@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { AdminComponentsEdit } from '../../components/admin/admin-components';
 import usePage from '../../hooks/usePage';
 import parse from 'html-react-parser';
-
+import { ImgUrlDefault } from '../../utils/consts';
 import './payment-delivery-page.scss';
 import { ComponentName } from '../../utils/consts';
 import useIsAdmin from '../../hooks/useIsAdmin';
@@ -21,7 +21,7 @@ export default function ContactsPage() {
             {data ? parse(`${data.text}`) : ''}
 
             <div className="page-img">
-                {data.img && <img src={`${process.env.REACT_APP_API_URL}components/${data.img}`} alt="poster" />}
+                {data.img && <img src={`${ImgUrlDefault.COMPONENTS}${data.img}`} alt="poster" />}
             </div>
         </Container>
     )

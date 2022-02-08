@@ -9,6 +9,7 @@ import useIsAdmin from '../../hooks/useIsAdmin';
 import useIsModerator from '../../hooks/useIsModerator';
 import parse from 'html-react-parser';
 import Error404 from '../error-404';
+import { ImgUrlDefault } from '../../utils/consts';
 import Rating from '../rating';
 
 import './shop-item-details.scss';
@@ -46,8 +47,7 @@ function ShopItemDetails({ itemId }) {
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="shop-item-details__image">
-                                    {itemDetails.img &&
-                                        <img src={`${process.env.REACT_APP_API_URL}products/${itemDetails.img}`} alt="item pictures" />}
+                                    <img src={`${ImgUrlDefault.PRODUCTS}${itemDetails.img}`} alt="item pictures" />
                                 </div>
                             </div>
                             <div className="col-md-6">

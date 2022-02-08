@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Button, Col, Form, Alert } from 'react-bootstrap';
+import { ImgUrlDefault } from '../../../utils/consts';
 
 function AdvantagesFormEdit({ show, handleNo, handleSubmit, itemDetails }) {
     const [error, setError] = React.useState(false);
@@ -93,7 +94,7 @@ function AdvantagesFormEdit({ show, handleNo, handleSubmit, itemDetails }) {
     }
 
     const imgUrl = selectedImage.length === 0 ?
-        `${process.env.REACT_APP_API_URL}advantages/${inputsValue.img}` : URL.createObjectURL(selectedImage);
+        `${ImgUrlDefault.ADVANTAGES}${inputsValue.img}` : URL.createObjectURL(selectedImage);
 
     return (
         <>

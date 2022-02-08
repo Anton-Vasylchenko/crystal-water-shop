@@ -4,6 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 import './cart-item.scss';
 import ModalBox from '../UI/modal-box';
+import { ImgUrlDefault } from '../../utils/consts';
 
 const CartItem = (props) => {
     const { item, count, totalPrice, onDeleteItem, onPlus, onMinus } = props;
@@ -34,7 +35,7 @@ const CartItem = (props) => {
             <div className="row">
                 <div className="col-md-6 d-flex align-items-center">
                     <div className="cart-item__img">
-                        <img src={`${process.env.REACT_APP_API_URL}products/${img}`} alt="item" />
+                        <img src={`${ImgUrlDefault.PRODUCTS}${img}`} alt="item" />
                     </div>
                     <div className="cart-item__info">
                         <Link to={`/shop/${id}`}><h3>{name}</h3></Link>

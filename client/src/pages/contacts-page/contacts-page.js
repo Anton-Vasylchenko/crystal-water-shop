@@ -6,6 +6,7 @@ import { AdminComponentsEdit } from '../../components/admin/admin-components';
 import parse from 'html-react-parser';
 import { ComponentName } from '../../utils/consts';
 import usePage from '../../hooks/usePage';
+import { ImgUrlDefault } from '../../utils/consts';
 
 import './contacts-page.scss';
 
@@ -28,7 +29,7 @@ export default function ContactsPage() {
 
                     <div className="col-md-6">
                         <div className="page-img">
-                            {data.img && <img src={`${process.env.REACT_APP_API_URL}components/${data.img}`} alt="poster" />}
+                            {data.img && <img src={`${ImgUrlDefault.COMPONENTS}${data.img}`} alt="poster" />}
                         </div>
                     </div>
                 </div>

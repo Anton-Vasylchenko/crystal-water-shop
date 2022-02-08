@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Col, Form, Alert, } from 'react-bootstrap';
+import { ImgUrlDefault } from '../../../../utils/consts';
 
 import './profile-edit-form.scss';
 
@@ -61,7 +62,7 @@ function ProfileEditForm(props) {
     }
 
     const imgUrl = selectedImage.length === 0 ?
-        `${process.env.REACT_APP_API_URL}users/${props.image}` : URL.createObjectURL(selectedImage);
+        `${ImgUrlDefault.USERS}${props.image}` : URL.createObjectURL(selectedImage);
 
     return (
         <Form onSubmit={onSubmitHandler} >

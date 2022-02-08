@@ -6,6 +6,7 @@ import TextEditor from '../text-editor';
 import { updateComponent } from '../../../services/productsAPI';
 
 import './admin-components.scss';
+import { ImgUrlDefault } from '../../../utils/consts';
 
 function AdminComponentsEdit({ data, updateData }) {
     const [modalVisible, setModalVisible] = React.useState(false);
@@ -121,7 +122,7 @@ function AdminComponentsEdit({ data, updateData }) {
                                 </Form.Group>
 
                                 <div className="shop-item-details__image mt-2 admin-image-edit">
-                                    <img src={`${process.env.REACT_APP_API_URL}components/${data.img}`} alt="item pictures" />
+                                    <img src={`${ImgUrlDefault.COMPONENTS}${data.img}`} alt="item pictures" />
                                 </div>
 
                                 <Form.Group as={Col} controlId="formGridImage" className="mt-4">

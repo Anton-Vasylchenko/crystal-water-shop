@@ -173,7 +173,7 @@ class UserController {
         }
 
         const token = jwt.sign(payload, secret, { expiresIn: '15m' });
-        const link = `http://localhost:3000/reset-password/${user.id}/${token}`
+        const link = `http://water.lviv.ua/reset-password/${user.id}/${token}`
 
         // тут мені треба відправити лінк на пошту користувача!!!
 

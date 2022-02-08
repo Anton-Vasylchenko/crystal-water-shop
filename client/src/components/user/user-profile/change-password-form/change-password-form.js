@@ -59,7 +59,7 @@ function ChangePasswordForm() {
         changePassword(currentPasswordInput, newPasswordInput, id).then(data => {
             onChangePasswordHandler();
         }).catch(error => {
-            setServerError(error.message);
+            setServerError('Невірний поточний пароль');
         });
     }
 
@@ -82,12 +82,12 @@ function ChangePasswordForm() {
                                     Поточний пароль
                                 </Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="password"
                                     value={currentPasswordInput}
                                     onChange={onChangeCurrentPasswordInput}
                                     placeholder="Введіть ваш поточний пароль"
                                 />
-                                {errors.currentPassword.length !== 0 && <p>{errors.currentPassword}</p>}
+                                {errors.currentPassword.length !== 0 && <p className="error-input">{errors.currentPassword}</p>}
                             </Form.Group>
                         </Form.Row>
 
@@ -99,12 +99,12 @@ function ChangePasswordForm() {
                                     Новий пароль
                                 </Form.Label>
                                 <Form.Control
-                                    type="number"
+                                    type="password"
                                     value={newPasswordInput}
                                     onChange={onChangeNewPasswordInput}
                                     placeholder="Введіть, будь ласка, новий пароль"
                                 />
-                                {errors.newPassword.length !== 0 && <p>{errors.newPassword}</p>}
+                                {errors.newPassword.length !== 0 && <p className="error-input">{errors.newPassword}</p>}
                             </Form.Group>
                         </Form.Row>
 

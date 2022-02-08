@@ -1,4 +1,5 @@
 import apiServices from '../../services/api-services';
+import { getProductById } from '../../services/productsAPI';
 
 const setLoaded = (payload) => ({
     type: 'SET_LOADED',
@@ -28,7 +29,7 @@ const fetchPopularGoods = (catId) => (dispatch) => {
 
 const fetchItemDetails = (id) => (dispatch) => {
     dispatch(setLoaded(false));
-    apiServices.getShopItemById(id).then(data => {
+    getProductById(id).then(data => {
         dispatch(setItemDetails(data));
     })
 }

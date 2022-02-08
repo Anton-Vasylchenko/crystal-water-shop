@@ -11,7 +11,7 @@ import useIsAdmin from '../../hooks/useIsAdmin';
 import parse from 'html-react-parser';
 
 import './home-page.scss';
-import { ComponentName } from '../../utils/consts';
+import { ComponentName, ImgUrlDefault } from '../../utils/consts';
 
 export default function HomePage() {
     const isAdmin = useIsAdmin();
@@ -25,7 +25,7 @@ export default function HomePage() {
 
                 <div className="home">
                     <div className="home__img">
-                        {data.img && <img src={`${process.env.REACT_APP_API_URL}components/${data.img}`} className="img-fluid" alt="main logo" />}
+                        {data.img && <img src={`${ImgUrlDefault.COMPONENTS}${data.img}`} className="img-fluid" alt="main logo" />}
                     </div>
 
                     <div className="home__text">

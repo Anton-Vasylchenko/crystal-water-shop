@@ -140,7 +140,7 @@ class SendController {
             orderId,
             totalAmount,
             ordersTable,
-            'stdavinchi@gmail.com'
+            process.env.EMAIL_FOR_ORDERS
         );
 
         sendOrderEmail(

@@ -1,6 +1,12 @@
 import { $authHost, $host } from './http';
 
 // products
+export const getProductById = async (id) => {
+    const { data } = await $host.get('api/product/' + id)
+    return data
+}
+
+
 export const createProduct = async (product) => {
     const { data } = await $authHost.post('api/product', product)
     return data

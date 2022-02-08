@@ -2,7 +2,7 @@ import React from 'react'
 import DropdownArrow from '../../UI/dropdown-arrow'
 import { useDispatch } from 'react-redux';
 import { fetchOrdersItems } from '../../../redux/actions/orders';
-import { ProductDefault } from '../../../utils/consts';
+import { ImgUrlDefault, ProductDefault } from '../../../utils/consts';
 import AdminOrderDelete from '../../admin/admin-order-delete/admin-order-delete';
 import useIsAdmin from '../../../hooks/useIsAdmin';
 
@@ -25,13 +25,13 @@ function OrdersListItem(props) {
 
     const onErrorImage = (e) => {
         e.target.onError = null;
-        e.target.src = `${process.env.REACT_APP_API_URL}/products/${ProductDefault.IMAGE}`;
+        e.target.src = `${ImgUrlDefault.PRODUCTS}${ProductDefault.IMAGE}`;
     }
 
     const orderImages = props.goods.map(item => item.img);
 
     const images = orderImages.slice(0, 3).map((img, index) => {
-        return <img key={index + img} src={`${process.env.REACT_APP_API_URL}products/${img}`} onError={onErrorImage} alt="poster" />
+        return <img key={index + img} src={`${ImgUrlDefault.PRODUCTS}${img}`} onError={onErrorImage} alt="poster" />
     });
 
     const orderData = props.date.split('T')[0].split('-').join('/');

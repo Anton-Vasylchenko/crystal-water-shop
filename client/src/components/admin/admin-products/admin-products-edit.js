@@ -7,13 +7,14 @@ import { fetchItemDetails, fetchPopularGoods, fetchCategories } from '../../../r
 import { updateProduct } from '../../../services/productsAPI';
 
 import './admin-products.scss';
+import { ImgUrlDefault } from '../../../utils/consts';
 
 function AdminProductsEdit({ itemDetails }) {
     const dispatch = useDispatch();
 
     const [modalVisible, setModalVisible] = React.useState(false);
     const [error, setError] = React.useState(false);
-    const [nameCount, setNameCount] = React.useState(itemDetails.name.length);
+    const [nameCount, setNameCount] = React.useState(0);
     const [itemCatId, setItemCatId] = React.useState(itemDetails.categoryId);
     const [selectedImage, setSelectedImage] = React.useState('')
 
@@ -166,7 +167,7 @@ function AdminProductsEdit({ itemDetails }) {
     })
 
     const imgUrl = selectedImage.length === 0 ?
-        `${process.env.REACT_APP_API_URL}products/${inputsValue.img}` : URL.createObjectURL(selectedImage);
+        `${ImgUrlDefault.PRODUCTS}${inputsValue.img}` : URL.createObjectURL(selectedImage);
 
     return (
         <>
@@ -188,9 +189,11 @@ function AdminProductsEdit({ itemDetails }) {
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridName">
                                 <Form.Label>
-                                    <b>Назва: <span
+                                    <b>Назва<span
                                         className={nameCount > 40 ? 'text-danger' : ''}>
-                                        ({nameCount})</span>
+
+                                        {!nameCount ? ':' : (`(${nameCount}):`)}
+                                    </span>
                                     </b>
                                 </Form.Label>
                                 <Form.Control

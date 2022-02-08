@@ -30,7 +30,13 @@ const PopularProducts = ({ title, catId }) => {
             id={id}
             {...item}
         />
-    });
+    })
+
+    if (!items || !items.length) {
+        return <Container title={title} isLoaded={isLoaded}>
+            <p className="empty-list-popular text-center">Товари відсутні</p>
+        </Container>
+    }
 
     return (
         <Container title={title} isLoaded={isLoaded}>

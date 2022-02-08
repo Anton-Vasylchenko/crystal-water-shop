@@ -1,3 +1,5 @@
+const _baseImgUrl = process.env.NODE_ENV === 'production' ? '/img/' : `${process.env.REACT_APP_API_URL}img/`;
+
 export const Routes = {
     LOGIN_ROUTE: '/login',
     REGISTRATION_ROUTE: '/registration',
@@ -35,3 +37,11 @@ export const UserDefault = {
 export const ProductDefault = {
     IMAGE: 'deleted.png'
 }
+
+export const ImgUrlDefault = {
+    ADVANTAGES: `${_baseImgUrl}advantages/`,
+    COMPONENTS: `${_baseImgUrl}components/`,
+    PRODUCTS: `${_baseImgUrl}products/`,
+    USERS: `${_baseImgUrl}users/`,
+}
+

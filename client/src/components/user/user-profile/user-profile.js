@@ -7,7 +7,7 @@ import { updateUser } from '../../../services/userAPI';
 import ProfileEditForm from './profile-edit-form/profile-edit-form';
 
 import './user-profile.scss';
-import { UserDefault } from '../../../utils/consts';
+import { ImgUrlDefault, UserDefault } from '../../../utils/consts';
 import ChangePasswordForm from './change-password-form/change-password-form';
 
 function UserProfile() {
@@ -48,7 +48,7 @@ function UserProfile() {
         <Container title="Профіль" isLoaded={isLoaded}>
             {!isFormVisible ? <div className="user-profile">
                 <div className="user-profile__image">
-                    <img src={`${process.env.REACT_APP_API_URL}users/${imgUrl}`} alt="user-avatar" />
+                    <img src={`${ImgUrlDefault.USERS}${imgUrl}`} alt="user-avatar" />
                 </div>
                 <div className="user-info">
                     <div className="edit-profile-btn" onClick={onShowFormHandler}>
