@@ -3,11 +3,6 @@ import axios from 'axios';
 class ApiServices {
   _baseUrl = process.env.NODE_ENV === 'production' ? 'api/' : `${process.env.REACT_APP_API_URL}api/`;
 
-  /**
-   * 'http://localhost:3004/';
-   * change _baseUrl on this url, if you run app with npm run dev and you want to use my fake json-server
-   */
-
   getResource = async (url) => {
     const res = await fetch(`${this._baseUrl}${url}`)
     if (!res.ok) {
@@ -15,20 +10,6 @@ class ApiServices {
     }
     const body = res.json();
     return body;
-  }
-
-  getGoods = async (sortBy, category, sortOrder, page, limit) => {
-    const { data } = await axios.get(`${this._baseUrl}product`, {
-      params: {
-        categoryId: category,
-        sortOrder: sortOrder,
-        sortBy: sortBy,
-        limit: limit,
-        page: page
-      }
-    })
-
-    return data;
   }
 
   getOrders = async (page, limit, userId) => {

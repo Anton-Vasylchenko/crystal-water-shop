@@ -92,6 +92,28 @@
   }
 }
 
+.bump {
+  animation: bump 300ms ease-out;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @media only screen and (max-width: 992px) {
   .header {
     position: fixed;
@@ -99,11 +121,14 @@
     z-index: 1;
     top: 0;
     padding-top: 6px;
-    .logo-wrapper {
+    .header-logo {
       display: none;
     }
   }
   .main-menu {
+    display: none;
+  }
+  .login-panel-wrapper {
     display: none;
   }
 }

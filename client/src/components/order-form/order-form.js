@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsAuth, setUser, clearCart } from '../../redux/actions';
 import { Modal, Form, Button, Col, Alert } from 'react-bootstrap';
@@ -37,7 +37,7 @@ function OrderForm() {
         setNameValue(name)
         setPhoneValue(phone);
         setEmailValue(email)
-    }, [])
+    }, [name, phone, email])
 
     const handleNo = () => {
         setShowPopup(false);
@@ -98,8 +98,7 @@ function OrderForm() {
 
         if (checkboxChecked) {
             try {
-                const regData = await registration(userData.email, userData.password, userData.name, userData.phone).then(data => {
-                    console.log(data)
+                await registration(userData.email, userData.password, userData.name, userData.phone).then(data => {
                     dispatch(setUser(data))
                     dispatch(setIsAuth(true))
                     userId = data.id

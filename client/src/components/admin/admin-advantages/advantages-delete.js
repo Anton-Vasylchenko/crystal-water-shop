@@ -25,7 +25,9 @@ function AdvantagesDelete({ name, id }) {
 
     return (
         <div>
-            <Button onClick={toggleShow} className="m-1 btn-danger"><TrashFill /></Button>
+            <Button onClick={toggleShow} className="m-1 btn-danger">
+                <TrashFill />
+            </Button>
 
             <ModalBox
                 show={show}

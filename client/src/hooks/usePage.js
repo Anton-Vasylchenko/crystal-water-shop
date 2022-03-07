@@ -5,17 +5,17 @@ function usePage(page) {
     const [componentData, setComponentData] = React.useState({})
     const [isLoading, setIsLoading] = React.useState(false)
 
-    React.useEffect(() => {
-        updateInfo();
-    }, [])
-
-    const updateInfo = () => {
+    const updateInfo = React.useCallback(() => {
         getComponentInfoByName(page).then(data => {
             setComponentData(...data)
         }).finally(() => {
             setIsLoading(true);
         })
-    }
+    }, [page])
+
+    React.useEffect(() => {
+        updateInfo();
+    }, [updateInfo])
 
     return {
         data: componentData,
@@ -24,4 +24,4 @@ function usePage(page) {
     }
 }
 
-export default usePage
+export default usePage;

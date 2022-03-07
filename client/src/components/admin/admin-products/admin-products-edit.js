@@ -41,7 +41,7 @@ function AdminProductsEdit({ itemDetails }) {
 
     React.useEffect(() => {
         dispatch(fetchCategories());
-    }, [])
+    }, [dispatch])
 
     const handleSubmit = (product) => {
         try {
@@ -106,7 +106,6 @@ function AdminProductsEdit({ itemDetails }) {
         }
 
         if (+inputsValue.price > Number.MAX_SAFE_INTEGER) {
-            console.log('dfsdfdsfdsfdsfdsfdsf')
             showErrorMsg(`Помилка! Невірно вказана ціна`);
             return;
         }

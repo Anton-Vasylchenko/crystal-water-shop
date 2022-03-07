@@ -110,7 +110,6 @@ function AdminProductsForm({ show, handleNo, handleSubmit }) {
             ...inputsValue,
             img: e.target.files[0]
         });
-
     }
 
     const showErrorMsg = (text) => {

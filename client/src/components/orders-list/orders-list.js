@@ -22,7 +22,7 @@ function OrdersList() {
         } else {
             dispatch(fetchOrders(pageOrders, limit))
         }
-    }, [id, pageOrders, limit]);
+    }, [id, pageOrders, limit, dispatch, role]);
 
     const handleChangePage = (pageNumber) => {
         dispatch(setOrdersPage(pageNumber));
@@ -31,7 +31,8 @@ function OrdersList() {
     return (
         <Container title={'Мої замовлення'} isLoaded={isLoaded}>
             <ul>
-                {ordersList.length === 0 ? <p>Список замовлень відсутній</p> : ordersList}
+                {ordersList.length === 0 ?
+                    <p className="order-list-empty">Список замовлень відсутній</p> : ordersList}
             </ul>
 
             <Pagination

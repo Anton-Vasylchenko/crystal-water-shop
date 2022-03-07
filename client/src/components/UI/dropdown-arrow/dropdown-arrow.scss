@@ -2,6 +2,7 @@
   margin-right: 8px;
   transform: rotate(180deg);
   cursor: pointer;
+  transition: 0.1s;
 
   &.rotated {
     transform: rotate(0deg);

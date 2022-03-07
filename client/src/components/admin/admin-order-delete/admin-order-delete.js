@@ -36,7 +36,7 @@ function AdminOrderDelete(props) {
             title={`Видалення замовлення`}
             body={`Ви дійсно бажаєте видалити замовлення №${props.orderNumber} ?`}
         />
-        <div className="del-order-btn" onClick={onShowPopupHandler}>Видалити</div>;
+        <div className="del-order-btn" onClick={onShowPopupHandler}>Видалити</div>
     </>
 }
 

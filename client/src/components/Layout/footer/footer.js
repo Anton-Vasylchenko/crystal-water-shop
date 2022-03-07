@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { getComponentInfoByName } from '../../../services/productsAPI';
 import { ComponentName } from '../../../utils/consts';
 import useIsAdmin from '../../../hooks/useIsAdmin';

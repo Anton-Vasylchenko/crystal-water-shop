@@ -15,15 +15,15 @@ function UsersList() {
     const limit = 9;
 
     React.useEffect(() => {
+        const getUsers = () => {
+            apiServices.getUsers(limit, page).then(data => {
+                setUsers(data.rows);
+                setTotalCount(data.count)
+            })
+        }
+
         getUsers();
     }, [page])
-
-    const getUsers = () => {
-        apiServices.getUsers(limit, page).then(data => {
-            setUsers(data.rows);
-            setTotalCount(data.count)
-        })
-    }
 
     const deleteUserHandler = (id) => {
         const newUsers = users.filter(user => user.id !== id);

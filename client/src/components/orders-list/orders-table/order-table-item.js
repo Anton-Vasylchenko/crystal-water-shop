@@ -20,7 +20,7 @@ function OrderTableItem({ item }) {
         </td>
         <td>{item.count}</td>
         <td>{item.price * item.count} ₴</td>
-    </tr>;
+    </tr>
 }
 
 export default OrderTableItem;

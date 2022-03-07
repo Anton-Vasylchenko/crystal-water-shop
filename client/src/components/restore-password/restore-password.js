@@ -35,7 +35,7 @@ function RestorePassword() {
 
     const resetPasswordInput = <div className="form-outline mb-4">
         {errorIsNotExist && <Alert variant={'danger'}> Користувач з такою поштою не зареєстрований </Alert>}
-        <label className="form-label" className="reset-form-label" htmlFor="email">Введіть вашу пошту:</label>
+        <label className="form-label reset-form-label" htmlFor="email">Введіть вашу пошту:</label>
         <input
             type="email"
             id="email"

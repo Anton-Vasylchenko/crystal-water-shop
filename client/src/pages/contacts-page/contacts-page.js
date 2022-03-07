@@ -33,7 +33,6 @@ export default function ContactsPage() {
                         </div>
                     </div>
                 </div>
-
             </Container>
 
             <Map />

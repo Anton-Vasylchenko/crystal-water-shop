@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { setIsAuth, setUserLogout } from '../../../redux/actions';
+import { setUserLogout } from '../../../redux/actions';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { transformedUserName } from '../../../helpers/transformedUserName';
 
 import './user-panel.scss';
 import { Routes, UserDefault, UserRoles, ImgUrlDefault } from '../../../utils/consts';
@@ -12,7 +13,9 @@ function UserPanel() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const { name, image, id, role, isAuth } = useSelector(({ user }) => user);
+    const { name, image, role, isAuth } = useSelector(({ user }) => user);
+
+    const userName = transformedUserName(name);
 
     const logOut = () => {
         dispatch(setUserLogout());
@@ -37,7 +40,7 @@ function UserPanel() {
                 <img src={`${ImgUrlDefault.USERS}${imageUrl}`} alt="user-avatar" />
             </div>
 
-            <DropdownButton id="dropdown-basic-button" title={name}>
+            <DropdownButton id="dropdown-basic-button" title={userName}>
 
                 <Dropdown.Item as={Link} eventKey={"1"} to={Routes.USER_PROFILE}>
                     Профіль

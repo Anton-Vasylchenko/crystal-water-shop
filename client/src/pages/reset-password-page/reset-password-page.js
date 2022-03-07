@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { isFiveChars } from '../../helpers/isValidInput';
 import Container from '../../components/UI/container';
 import { Alert } from 'react-bootstrap';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { resetPassword } from '../../services/userAPI';
 
 function ResetPasswordPage({ userId, token }) {

@@ -1,5 +1,4 @@
-import apiServices from '../../services/api-services';
-import { getProductById } from '../../services/productsAPI';
+import { getProductById, getAllProducts } from '../../services/productsAPI';
 
 const setLoaded = (payload) => ({
     type: 'SET_LOADED',
@@ -8,7 +7,7 @@ const setLoaded = (payload) => ({
 
 const fetchGoods = (sortBy, category, sortOrder, page, limit) => (dispatch) => {
     dispatch(setLoaded(false));
-    apiServices.getGoods(sortBy, category, sortOrder, page, limit).then(data => {
+    getAllProducts(sortBy, category, sortOrder, page, limit).then(data => {
         dispatch(setGoods(data.rows));
         dispatch(setTotalCount(data.count));
     })
@@ -22,7 +21,7 @@ const fetchPopularGoods = (catId) => (dispatch) => {
     const sortBy = 'rating'
 
     dispatch(setLoaded(false));
-    apiServices.getGoods(sortBy, catId, sortOrder, page, limit).then(data => {
+    getAllProducts(sortBy, catId, sortOrder, page, limit).then(data => {
         dispatch(setPopularGoods(data.rows));
     })
 }

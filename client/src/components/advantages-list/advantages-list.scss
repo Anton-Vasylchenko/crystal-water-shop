@@ -10,6 +10,7 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
+  transition: 0.5s background ease-in-out;
 
   &__img {
     width: 100px;
@@ -20,16 +21,27 @@
     justify-content: center;
     align-items: center;
     background: rgb(171, 241, 255);
+    transition: 0.3s ease;
     background: linear-gradient(
       22deg,
       rgba(171, 241, 255, 1) 0%,
       rgba(70, 89, 231, 1) 100%,
       rgba(121, 186, 183, 0.8267682072829132) 100%
     );
+
     img {
       height: 60px;
       width: 60px;
       object-fit: contain;
+    }
+
+    &:hover {
+      transform: translateY(-10px);
+    }
+
+    &:hover img {
+      transition: all 0.65s ease-in;
+      transform: rotateY(360deg);
     }
   }
 
@@ -38,6 +50,7 @@
     text-align: center;
     font-weight: bold;
     font-size: 14px;
+    word-break: break-all;
   }
 }
 

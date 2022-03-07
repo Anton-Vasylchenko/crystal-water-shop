@@ -8,9 +8,7 @@ import { AdminProductsEdit } from '../admin/admin-products';
 import useIsAdmin from '../../hooks/useIsAdmin';
 import useIsModerator from '../../hooks/useIsModerator';
 import parse from 'html-react-parser';
-import Error404 from '../error-404';
 import { ImgUrlDefault } from '../../utils/consts';
-import Rating from '../rating';
 
 import './shop-item-details.scss';
 
@@ -30,16 +28,18 @@ function ShopItemDetails({ itemId }) {
 
     useEffect(() => {
         dispatch(fetchItemDetails(itemId));
-    }, [itemId])
+    }, [itemId, dispatch])
 
     if (!itemDetails || Object.keys(itemDetails).length === 0) {
-        return <Error404 />;
+        return <Spinner />;
     }
+
+    const editAccess = isAdmin || isModerator;
 
     return (
         <React.Fragment>
             <Container title={itemDetails.name} backArrow>
-                {isAdmin || isModerator && itemDetails
+                {editAccess && itemDetails
                     ? <AdminProductsEdit itemDetails={itemDetails} /> : ''}
 
                 {!isLoaded ? <Spinner /> :

@@ -1,43 +1,26 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { PencilSquare } from 'react-bootstrap-icons';
-import AdvantagesFormEdit from './advantages-form-edit';
-import { useDispatch } from 'react-redux';
-import { fetchAdvantages } from '../../../redux/actions';
+import AdvantagesForm from './advantages-form';
 import { updateAdvantages } from '../../../services/productsAPI';
+import useAdminAdvantages from '../../../hooks/useAdminAdvantages';
 
 function AdvantagesEdit({ item }) {
-    const dispatch = useDispatch();
-    const [modalVisible, setModalVisible] = React.useState(false);
 
-    const onShow = () => {
-        setModalVisible(true)
-    }
-
-    const closeModal = () => {
-        setModalVisible(false)
-    }
-
-    const handleSubmit = (adv) => {
-        try {
-            const formData = new FormData();
-            formData.append('title', adv.title);
-            typeof adv.img !== 'string' && formData.append('img', adv.img);
-            updateAdvantages(adv.id, formData).then(data => {
-                dispatch(fetchAdvantages());
-            })
-        } catch (e) {
-            alert(e.response.data.message)
-        }
-    }
+    const { onShowModalForm,
+        onCloseModalForm,
+        handleSubmit,
+        isModalVisible } = useAdminAdvantages(updateAdvantages);
 
     return (
         <div>
-            <Button className="m-1 btn-success" onClick={onShow}><PencilSquare /></Button>
+            <Button className="m-1 btn-success" onClick={onShowModalForm}>
+                <PencilSquare />
+            </Button>
 
-            <AdvantagesFormEdit
-                show={modalVisible}
-                handleNo={closeModal}
+            <AdvantagesForm
+                show={isModalVisible}
+                handleNo={onCloseModalForm}
                 handleSubmit={handleSubmit}
                 itemDetails={item}
             />

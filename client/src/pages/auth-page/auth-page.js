@@ -85,10 +85,6 @@ function LoginPage() {
         setUserName(e.target.value)
     }
 
-    const onRestorePassword = (e) => {
-        e.preventDefault();
-    }
-
     return (
         <Container>
             <form className="login-form" onSubmit={auth}>

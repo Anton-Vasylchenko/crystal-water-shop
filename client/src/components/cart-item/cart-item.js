@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { Modal, Button } from 'react-bootstrap';
 
 import './cart-item.scss';
 import ModalBox from '../UI/modal-box';

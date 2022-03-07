@@ -22,7 +22,7 @@ function ShopItemsList() {
 
     React.useEffect(() => {
         dispatch(fetchGoods(sortBy, activeCategory, sortOrder, page, limit));
-    }, [activeCategory, sortBy, sortOrder, page, limit]);
+    }, [activeCategory, sortBy, sortOrder, page, limit, dispatch]);
 
     const handleAddItemToCart = (obj) => {
         dispatch(addItemToCart(obj));

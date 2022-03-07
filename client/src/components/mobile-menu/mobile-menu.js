@@ -2,11 +2,15 @@ import React from 'react';
 
 import MainLogo from '../main-logo';
 import MainNavigation from '../main-navigation';
+import { useSelector } from 'react-redux';
+
+import LoginPanel from '../login-panel';
 
 import './mobile-menu.scss';
 
 function MobileMenu() {
     const [showMenu, setShowMenu] = React.useState(false);
+    const { isAuth } = useSelector(({ user }) => user);
 
     const toggleMenu = () => {
         setShowMenu(prevState => !prevState);
@@ -20,9 +24,10 @@ function MobileMenu() {
                 <span></span>
             </div>
 
-            <div className={!showMenu ? "mobile-menu" : "mobile-menu show-menu"}>
+            <div onClick={toggleMenu} className={!showMenu ? "mobile-menu" : "mobile-menu show-menu"}>
                 <MainLogo />
-                <MainNavigation onClickLink={toggleMenu} />
+                <MainNavigation />
+                {!isAuth && <LoginPanel />}
             </div>
 
             <div

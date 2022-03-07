@@ -6,6 +6,18 @@ export const getProductById = async (id) => {
     return data
 }
 
+export const getAllProducts = async (sortBy, categoryId, sortOrder, page, limit) => {
+    const { data } = await $host.get('api/product/', {
+        params: {
+            categoryId,
+            sortOrder,
+            sortBy,
+            limit,
+            page
+        }
+    })
+    return data;
+}
 
 export const createProduct = async (product) => {
     const { data } = await $authHost.post('api/product', product)
@@ -20,6 +32,11 @@ export const updateProduct = async (product, id) => {
 export const deleteProduct = async (id) => {
     const { data } = await $authHost.delete('api/product/' + id)
     return data
+}
+
+export const getProductByCatId = async (id) => {
+    const { data } = await $host.get('api/product/byCategory/' + id)
+    return data;
 }
 
 // categories
@@ -51,11 +68,6 @@ export const getComponentInfoByName = async (name) => {
     return data;
 }
 
-export const getProductByCatId = async (id) => {
-    const { data } = await $host.get('api/product/byCategory/' + id)
-    return data;
-}
-
 // advantages
 
 export const createAdvantages = async (advantage) => {
@@ -68,8 +80,8 @@ export const deleteAdvantages = async (id) => {
     return data
 }
 
-export const updateAdvantages = async (id, item) => {
-    const { data } = await $authHost.patch('api/advantages/' + id, item)
+export const updateAdvantages = async (obj) => {
+    const { data } = await $authHost.patch('api/advantages/' + obj.id, obj.item)
     return data
 }
 

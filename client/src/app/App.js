@@ -60,11 +60,11 @@ function App() {
         <Route path={Routes.REGISTRATION_ROUTE} component={Pages.AuthPage} />
 
         {isAuth &&
-          <>
-            <Route path={Routes.ORDERS_LIST} component={OrdersList} />
-            <Route path={Routes.USERS_LIST} component={UsersList} />
-            <Route path={Routes.USER_PROFILE} component={UserProfile} />
-          </>
+          [
+            <Route path={Routes.ORDERS_LIST} key={Routes.ORDERS_LIST} component={OrdersList} />,
+            <Route path={Routes.USERS_LIST} key={Routes.USERS_LIST} component={UsersList} />,
+            <Route path={Routes.USER_PROFILE} key={Routes.USER_PROFILE} component={UserProfile} />
+          ]
         }
 
         <Route path={Routes.USER_RESET_PASSWORD} render={({ match }) => {

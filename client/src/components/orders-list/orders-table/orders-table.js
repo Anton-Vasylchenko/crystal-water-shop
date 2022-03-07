@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Table } from 'react-bootstrap';
 import OrderTableItem from './order-table-item';
 
@@ -16,7 +16,7 @@ function OrdersTable(props) {
                 </tr>
             </thead>
             <tbody>
-                {props.items.map(item => <OrderTableItem item={item} />)}
+                {props.items.map(item => <OrderTableItem key={item.id} item={item} />)}
             </tbody>
         </Table>
     )

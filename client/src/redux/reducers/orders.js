@@ -14,34 +14,21 @@ const initialState = {
 //     date: '15/25/21',
 //     goods: [{
 //         id: 22,
-//         name: 'Банка',
+//         name: 'Water 1',
 //         img: 'b221a67f-0662-4d64-a123-ea3223948eab.jpeg',
 //         price: 150
 //     },
 //     {
 //         id: 23,
-//         name: 'Банка',
+//         name: 'Water 2',
 //         img: 'b221a67f-0662-4d64-a123-ea3223948eab.jpeg',
 //         price: 150
 //     }]
 // }
 
-function getTotalOrderAmount(array) {
-    let totalPrice = 0;
-
-    for (const element of array) {
-        const sum = element.price * element.count;
-        totalPrice += +sum
-    }
-
-    return totalPrice;
-}
-
-
 const orders = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_ORDERS':
-            // case 'SET_ORDERS':
             const itemsOrder = {};
 
             for (let i = 0; i < action.payload.length; i++) {
@@ -65,7 +52,6 @@ const orders = (state = initialState, action) => {
                 order.totalAmount = itemsOrder[key][0].amount;
                 order.date = itemsOrder[key][0].createdAt;
                 order.goods = [];
-                // order.goods.push(...itemsOrder[key]);
 
                 stateOrders.push(order);
             }

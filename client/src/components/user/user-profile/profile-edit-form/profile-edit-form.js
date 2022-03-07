@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Form, Alert, } from 'react-bootstrap';
+import { Button, Form, Alert, } from 'react-bootstrap';
 import { ImgUrlDefault } from '../../../../utils/consts';
 
 import './profile-edit-form.scss';
@@ -67,7 +67,7 @@ function ProfileEditForm(props) {
     return (
         <Form onSubmit={onSubmitHandler} >
 
-            {error && <Alert className="m-2" className="profile-edit__error" variant={'danger'}>
+            {error && <Alert className="m-2 profile-edit__error" variant={'danger'}>
                 {error}
             </Alert>}
 

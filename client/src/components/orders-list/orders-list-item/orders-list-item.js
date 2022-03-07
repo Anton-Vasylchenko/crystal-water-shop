@@ -17,7 +17,7 @@ function OrdersListItem(props) {
 
     React.useEffect(() => {
         dispatch(fetchOrdersItems(props.orderNumber));
-    }, []);
+    }, [dispatch, props.orderNumber]);
 
     const showOrderDetailsHandler = () => {
         setDropdownOrder(prevState => !prevState);

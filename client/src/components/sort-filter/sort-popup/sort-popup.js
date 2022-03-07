@@ -65,13 +65,14 @@ function SortPopup() {
                 <span onClick={togglePopup}>{activeLabel}</span>
             </div>
 
+
             {visiblePopup &&
-                < div className="sort__popup">
+                <div className="sort__popup">
                     <ul>
                         {elements}
                     </ul>
                 </div>}
-        </div >
+        </div>
     )
 }
 

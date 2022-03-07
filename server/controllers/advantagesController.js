@@ -25,10 +25,17 @@ class AdvantagesController {
     }
 
     async create(req, res, next) {
+        console.log('ssssssssssssssssssssssssssssssssssss');
         try {
-            console.log(req.method);
+            console.log('ffffffffffffffffffffffffffffffffffffffffffffffffff');
+
             const { title } = req.body
             const { img } = req.files
+
+            console.log('ffffffffffffffffffffffffffffffffffffffffffffffffff');
+
+            console.log(title)
+            console.log(img)
 
             let imgType = img.mimetype.split('/')[1];
             const fileType = img.mimetype.split('/')[0];

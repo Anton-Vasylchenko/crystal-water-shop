@@ -1,47 +1,28 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { PlusCircleFill } from 'react-bootstrap-icons';
-import { AdvantagesFormCreate } from '.';
+import AdvantagesForm from './advantages-form';
 import { createAdvantages } from '../../../services/productsAPI';
-import { fetchAdvantages } from '../../../redux/actions';
-import { useDispatch } from 'react-redux';
+import useAdminAdvantages from '../../../hooks/useAdminAdvantages';
 
 import './advantages-create.scss';
 
 function AdvantagesCreate() {
-    const dispatch = useDispatch();
-    const [modalVisible, setModalVisible] = React.useState(false);
 
-    const onShow = () => {
-        setModalVisible(true)
-    }
-
-    const closeModal = () => {
-        setModalVisible(false)
-    }
-
-    const handleSubmit = (adv) => {
-        try {
-            const formData = new FormData();
-            formData.append('title', adv.text);
-            formData.append('img', adv.img);
-            createAdvantages(formData).then(data => {
-                dispatch(fetchAdvantages());
-            })
-        } catch (e) {
-            alert(e.response.data.message)
-        }
-    }
+    const { onShowModalForm,
+        onCloseModalForm,
+        handleSubmit,
+        isModalVisible } = useAdminAdvantages(createAdvantages);
 
     return (
         <div className="admin-advantages-create-btn">
-            <Button variant="info" onClick={onShow}>
+            <Button variant="info" onClick={onShowModalForm}>
                 <PlusCircleFill color="white" />
             </Button>
 
-            <AdvantagesFormCreate
-                show={modalVisible}
-                handleNo={closeModal}
+            <AdvantagesForm
+                show={isModalVisible}
+                handleNo={onCloseModalForm}
                 handleSubmit={handleSubmit}
             />
         </div>

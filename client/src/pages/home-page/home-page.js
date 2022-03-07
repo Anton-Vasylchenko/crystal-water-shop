@@ -2,12 +2,10 @@ import React from 'react'
 import Container from '../../components/UI/container';
 import PopularProducts from '../../components/popular-products';
 import AdvantagesList from '../../components/advantages-list';
-import { useSelector } from 'react-redux';
 import Map from '../../components/Layout/map';
 import { AdminComponentsEdit } from '../../components/admin/admin-components';
 import usePage from '../../hooks/usePage';
 import useIsAdmin from '../../hooks/useIsAdmin';
-
 import parse from 'html-react-parser';
 
 import './home-page.scss';
@@ -25,7 +23,9 @@ export default function HomePage() {
 
                 <div className="home">
                     <div className="home__img">
-                        {data.img && <img src={`${ImgUrlDefault.COMPONENTS}${data.img}`} className="img-fluid" alt="main logo" />}
+                        {data.img &&
+                            <img src={`${ImgUrlDefault.COMPONENTS}${data.img}`} className="img-fluid" alt="main logo" />
+                        }
                     </div>
 
                     <div className="home__text">

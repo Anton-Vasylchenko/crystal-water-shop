@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Modal, Form, Col, Button, Alert } from 'react-bootstrap';
 import { changePassword } from '../../../../services/userAPI';
 import { isFiveChars, isEmpty } from '../../../../helpers/isValidInput';
 import './change-password-form.scss';
 
 function ChangePasswordForm() {
-    const dispatch = useDispatch();
-
     const [showForm, setShowForm] = useState(false);
     const [currentPasswordInput, setCurrentPasswordInput] = useState('');
     const [newPasswordInput, setNewPasswordInput] = useState('');
