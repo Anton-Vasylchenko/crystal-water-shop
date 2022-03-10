@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Routes } from '../../utils/consts';
 
 import './main-navigation.scss';
@@ -8,19 +8,29 @@ const MainNavigation = () => {
     return (
         <ul className="main-navigation">
             <li>
-                <Link to={Routes.HOME_ROUTE}> Головна </Link>
+                <NavLink
+                    activeClassName="main-navigation__active"
+                    exact={true} to={Routes.HOME_ROUTE}> Головна </NavLink>
             </li>
             <li>
-                <Link to={Routes.ABOUT_ROUTE}> Про нас </Link>
+                <NavLink
+                    activeClassName="main-navigation__active"
+                    to={Routes.ABOUT_ROUTE}> Про нас </NavLink>
             </li>
             <li>
-                <Link to={Routes.CONTACTS_ROUTE}> Контакти </Link>
+                <NavLink
+                    activeClassName="main-navigation__active"
+                    to={Routes.CONTACTS_ROUTE}> Контакти </NavLink>
             </li>
             <li>
-                <Link to={Routes.SHOP_ROUTE}> Магазин </Link>
+                <NavLink
+                    activeClassName="main-navigation__active"
+                    to={Routes.SHOP_ROUTE}> Магазин </NavLink>
             </li>
             <li>
-                <Link to={Routes.PAYMENT_DELIVERY_ROUTE}> Доставка і оплата </Link>
+                <NavLink
+                    activeClassName="main-navigation__active"
+                    to={Routes.PAYMENT_DELIVERY_ROUTE}> Доставка і оплата </NavLink>
             </li>
         </ul>
     )

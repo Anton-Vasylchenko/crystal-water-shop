@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Routes } from '../../utils/consts';
 
 import './login-panel.scss';
@@ -8,8 +8,16 @@ function LoginPanel() {
 
     return (
         <ul className="login-panel">
-            <li><Link to={Routes.LOGIN_ROUTE}> Увійти </Link></li>
-            <li><Link to={Routes.REGISTRATION_ROUTE}> Реєстрація </Link></li>
+            <li>
+                <NavLink
+                    activeClassName="login-panel__active"
+                    to={Routes.LOGIN_ROUTE}> Увійти </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    activeClassName="login-panel__active"
+                    to={Routes.REGISTRATION_ROUTE}> Реєстрація </NavLink>
+            </li>
         </ul>
     )
 }

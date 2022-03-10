@@ -1,4 +1,5 @@
-const _baseImgUrl = process.env.NODE_ENV === 'production' ? '/img/' : `${process.env.REACT_APP_API_URL}img/`;
+const _baseImgUrl = process.env.NODE_ENV === 'production' ?
+    '/img/' : `${process.env.REACT_APP_API_URL}img/`;
 
 export const Routes = {
     LOGIN_ROUTE: '/login',
